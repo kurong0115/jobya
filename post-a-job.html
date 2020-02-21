@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Jobya - 发布职位</title>
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta name="author" content="Themesdesign" />
+
+    <link rel="shortcut icon" href="images/favicon.ico">
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+
+    <!--Material Icon -->
+    <link rel="stylesheet" type="text/css" href="css/materialdesignicons.min.css" />
+
+    <link rel="stylesheet" type="text/css" href="css/fontawesome.css" />
+
+    <!-- selectize css -->
+    <link rel="stylesheet" type="text/css" href="css/selectize.css" />
+
+    <link rel="stylesheet" type="text/css" href="css/nice-select.css" />
+
+    <!-- Custom  Css -->
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+
+</head>
+
+<body>
+    <!-- Loader -->
+    <div id="preloader">
+        <div id="status">
+            <div class="spinner">
+                <div class="double-bounce1"></div>
+                <div class="double-bounce2"></div>
+            </div>
+        </div>
+    </div>
+    <!-- Loader -->
+
+    <!-- Navigation Bar-->
+    <header id="topnav" class="defaultscroll scroll-active">
+        
+    </header><!--end header-->
+    <!-- Navbar End -->
+    
+    <!-- Start home -->
+    <section class="bg-half page-next-level"> 
+        <div class="bg-overlay"></div>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div class="text-center text-white">
+                        <h4 class="text-uppercase title mb-4">发布一个新的职位</h4>
+                        <ul class="page-next d-inline-block mb-0">
+                            <li><a href="index.html" class="text-uppercase font-weight-bold">首页</a></li>
+                            <li>
+                                <span class="text-uppercase text-white font-weight-bold">发布职位</span> 
+                            </li> 
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- end home -->
+
+    <!-- POST A JOB START -->
+    <section class="section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="rounded shadow bg-white p-4">
+                        <div class="custom-form">
+                            <div id="message3"></div>
+                            <form method="post" action="" name="contact-form" id="contact-form3">
+                                <h4 class="text-dark mb-3">发布一个职位 :</h4>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group app-label mt-2">
+                                            <label class="text-muted">职位名称</label>
+                                            <input id="name" type="text" class="form-control resume" placeholder="">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group app-label mt-2">
+                                            <label class="text-muted">职位类型</label>
+                                            <div class="form-button">
+                                                <select class="nice-select rounded" id="job-type" aria-placeholder="职位类型">
+                                                    <!-- <option data-display="职位类型">职位类型</option> -->
+                                                    <option value="0">不限</option>
+                                                    <option value="1">全职</option>
+                                                    <option value="2">兼职</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group app-label mt-2">
+                                            <label class="text-muted">City</label>
+                                            <input id="city" type="text" class="form-control resume" placeholder="城市">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group app-label mt-2">
+                                            <label class="text-muted">行业</label>
+                                            <div class="form-button">
+                                                <select id="select-category">
+                                                    <option value="">分类...</option><option value="1">技术</option><option value="2">产品</option><option value="3">设计</option><option value="4">运营</option><option value="5">市场</option><option value="6">人力资源</option><option value="7">高级管理</option><option value="8">销售</option><option value="9">媒体</option><option value="10">金融</option><option value="11">教育培训</option><option value="12">医疗健康</option><option value="13">采购|贸易</option><option value="14">供应链/物流</option><option value="15">房地产/建筑</option><option value="16">咨询/翻译/法律</option><option value="17">旅游</option><option value="18">服务业</option><option value="19">生产制造</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    
+                                    <div class="col-md-6">
+                                        <div class="form-group app-label mt-2">
+                                            <label class="text-muted">详细地址</label>
+                                            <input id="address" type="text" class="form-control resume" placeholder="地址">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group app-label mt-2">
+                                            <label class="text-muted">性别</label>
+                                            <div class="form-button">
+                                                <select class="nice-select rounded" id="gender">
+                                                    <!-- <option data-display="性别">性别</option> -->
+                                                    <!-- <option value="0">不限</option>
+                                                    <option value="1">男</option>
+                                                    <option value="2">女</option> -->
+                                                    <option value="不限">不限</option>
+                                                    <option value="男">男</option>
+                                                    <option value="女">女</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group app-label mt-2">
+                                            <label class="text-muted">薪资水平</label>
+                                            <div class="form-button">
+                                                <select class="nice-select rounded" id="salary">
+                                                    <!-- <option data-display="薪资水平">薪资水平</option> -->
+                                                    <!-- <option value="1">不限</option>
+                                                    <option value="2">3K以下</option>
+                                                    <option value="3">3-5K</option>
+                                                    <option value="4">5-10K</option>
+                                                    <option value="5">10-15K</option>
+                                                    <option value="6">15-20K</option>
+                                                    <option value="7">20-30K</option>
+                                                    <option value="8">30-50K</option>
+                                                    <option value="9">50K以上</option> -->
+                                                    <option value="不限">不限</option>
+                                                    <option value="3K以下">3K以下</option>
+                                                    <option value="3-5K">3-5K</option>
+                                                    <option value="5-10K">5-10K</option>
+                                                    <option value="10-15K">10-15K</option>
+                                                    <option value="15-20K">15-20K</option>
+                                                    <option value="20-30K">20-30K</option>
+                                                    <option value="30-50K">30-50K</option>
+                                                    <option value="50K以上">50K以上</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group app-label mt-2">
+                                            <label class="text-muted">邮箱</label>
+                                            <input id="email" type="email" class="form-control resume" placeholder="邮箱">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group app-label mt-2">
+                                            <label class="text-muted">学历要求</label>
+                                            <div class="form-button">
+                                                <select class="nice-select rounded" id="education">
+                                                    <!-- <option data-display="学历">学历</option> -->
+                                                    <!-- <option value="0">不限</option>
+                                                    <option value="1">初中及以下</option>
+                                                    <option value="2">中专/中技</option>
+                                                    <option value="3">高中</option>
+                                                    <option value="4">大专</option>
+                                                    <option value="5">本科</option>
+                                                    <option value="6">硕士</option>
+                                                    <option value="7">博士</option> -->
+                                                    <option value="不限">不限</option>
+                                                    <option value="初中及以下">初中及以下</option>
+                                                    <option value="中专/中技">中专/中技</option>
+                                                    <option value="高中">高中</option>
+                                                    <option value="大专">大专</option>
+                                                    <option value="本科">本科</option>
+                                                    <option value="硕士">硕士</option>
+                                                    <option value="博士">博士</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group app-label mt-2">
+                                            <label class="text-muted">工作经验</label>
+                                            <div class="form-button">
+                                                <select class="nice-select rounded" id="work-experience">
+                                                    <!-- <option data-display="Experience">工作经验</option> -->
+                                                    <!-- <option value="0">不限</option>
+                                                    <option value="1">在校生</option>
+                                                    <option value="2">应届生</option>
+                                                    <option value="3">1年以内</option>
+                                                    <option value="4">1-3年</option>
+                                                    <option value="5">3-5年</option>
+                                                    <option value="6">5-10年</option>
+                                                    <option value="7">10年以上</option> -->
+                                                    <option value="不限">不限</option>
+                                                    <option value="在校生">在校生</option>
+                                                    <option value="应届生">应届生</option>
+                                                    <option value="1年以内">1年以内</option>
+                                                    <option value="1-3年">1-3年</option>
+                                                    <option value="3-5年">3-5年</option>
+                                                    <option value="5-10年">5-10年</option>
+                                                    <option value="10年以上">10年以上</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group app-label mt-2">
+                                            <label class="text-muted">简介</label>
+                                            <textarea id="introduce" rows="6" class="form-control resume" placeholder=""></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="component-wrapper rounded shadow">
+                                        <div class="p-4 border-bottom bg-light">
+                                            <label class="text-muted">福利</label>
+                                            <!-- <h4 class="title mb-0">  </h4> -->
+                                        </div>
+        
+                                        <!-- <div class="p-4"> -->
+                                            <div class="form-check form-check-inline">
+                                                <div class="form-group">
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input name="benefit" value="五险一金" type="checkbox" class="custom-control-input" id="customCheck1">
+                                                        <label class="custom-control-label" for="customCheck1">五险一金</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+        
+                                            
+
+                                            <div class="form-check form-check-inline">
+                                                <div class="form-group">
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input name="benefit" value="交通补贴" type="checkbox" class="custom-control-input" id="customCheck13">
+                                                        <label class="custom-control-label" for="customCheck13">交通补贴</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+        
+                                            <div class="form-check form-check-inline">
+                                                <div class="form-group">
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input name="benefit" value="定期体检" type="checkbox" class="custom-control-input" id="customCheck3">
+                                                        <label class="custom-control-label" for="customCheck3">定期体检</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-check form-check-inline">
+                                                <div class="form-group">
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input name="benefit" value="加班补助" type="checkbox" class="custom-control-input" id="customCheck4">
+                                                        <label class="custom-control-label" for="customCheck4">加班补助</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-check form-check-inline">
+                                                <div class="form-group">
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input name="benefit" value="年终奖" type="checkbox" class="custom-control-input" id="customCheck5">
+                                                        <label class="custom-control-label" for="customCheck5">年终奖</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-check form-check-inline">
+                                                <div class="form-group">
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input name="benefit" value="带薪年假" type="checkbox" class="custom-control-input" id="customCheck6">
+                                                        <label class="custom-control-label" for="customCheck6">带薪年假</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-check form-check-inline">
+                                                <div class="form-group">
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input name="benefit" value="餐补" type="checkbox" class="custom-control-input" id="customCheck7">
+                                                        <label class="custom-control-label" for="customCheck7">餐补&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-check form-check-inline">
+                                                <div class="form-group">
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input name="benefit" value="通讯补贴" type="checkbox" class="custom-control-input" id="customCheck8">
+                                                        <label class="custom-control-label" for="customCheck8">通讯补贴</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-check form-check-inline">
+                                                <div class="form-group">
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input name="benefit" value="节日福利" type="checkbox" class="custom-control-input" id="customCheck9">
+                                                        <label class="custom-control-label" for="customCheck9">节日福利</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-check form-check-inline">
+                                                <div class="form-group">
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input name="benefit" value="员工旅游" type="checkbox" class="custom-control-input" id="customCheck10">
+                                                        <label class="custom-control-label" for="customCheck10">员工旅游</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-check form-check-inline">
+                                                <div class="form-group">
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input name="benefit" value="股票期权" type="checkbox" class="custom-control-input" id="customCheck11">
+                                                        <label class="custom-control-label" for="customCheck11">股票期权</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-check form-check-inline">
+                                                <div class="form-group">
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input name="benefit" value="住房补贴" type="checkbox" class="custom-control-input" id="customCheck12">
+                                                        <label class="custom-control-label" for="customCheck12">住房补贴&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-check form-check-inline">
+                                                <div class="form-group">
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input name="benefit" value="补充医疗保险" type="checkbox" class="custom-control-input" id="customCheck2">
+                                                        <label class="custom-control-label" for="customCheck2">补充医疗保险</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <!-- </div> -->
+                                    <!-- <div class="form-check form-check-inline">
+                                        <div class="form-group">
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                                <label class="custom-control-label" for="customCheck1">One</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group app-label mt-2">
+                                            <label class="text-muted">福利</label>
+                                            <textarea id="benefit" rows="6" class="form-control resume" placeholder=""></textarea>
+                                        </div>
+                                    </div> -->
+                                </div>
+
+                                <!-- <div class="row">
+                                    <div class="col-md-12">
+                                        <ul class="list-inline mb-0">
+                                            <li class="list-inline-item">
+                                                <div class="input-group mt-2 mb-2">
+                                                    <div class="custom-file">
+                                                        <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+                                                        <label class="custom-file-label rounded"><i class="mdi mdi-cloud-upload mr-1"></i> Upload Files</label>
+                                                    </div>
+                                                </div>
+                                            </li>
+
+                                            <li class="list-inline-item">
+                                                <h6 class="text-muted mb-0">Upload Images Or Documents.</h6>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div> -->
+
+                                <div class="row">
+                                    <div class="col-lg-12 mt-2">
+                                        <a href="javascript:publish()" class="btn btn-primary">发布</a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- POST A JOB END -->
+
+    <!-- subscribe start -->
+    <section class="section bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-5">
+                    <div class="float-left position-relative notification-icon mr-2">
+                        <i class="mdi mdi-bell-outline text-primary"></i>
+                        <span class="badge badge-pill badge-danger">1</span>
+                    </div>
+                    <h5 class="mt-2 mb-0">Your Job Notification</h5>
+                </div>
+                <div class="col-lg-8 col-md-7 mt-4 mt-sm-0">
+                    <form>
+                        <div class="form-group mb-0">
+                            <div class="input-group mb-0">
+                                <input name="email" id="email" type="email" class="form-control" placeholder="Your email :" required="" aria-describedby="newssubscribebtn">
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary submitBnt" type="submit" id="newssubscribebtn">Subscribe</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- subscribe end -->
+
+    <hr>
+    <footer class="footer footer-bar">
+        
+    </footer><!--end footer-->
+    <!-- Footer End -->
+
+    <!-- Back to top -->
+    <a href="#" class="back-to-top rounded text-center" id="back-to-top"> 
+        <i class="mdi mdi-chevron-up d-block"> </i> 
+    </a>
+    <!-- Back to top -->
+
+    <!-- javascript -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/jquery.easing.min.js"></script>
+    <script src="js/plugins.js"></script>
+
+    <!-- selectize js -->
+    <script src="js/selectize.min.js"></script>
+
+    <script src="js/jquery.nice-select.min.js"></script>
+
+    <script src="js/app.js"></script>
+
+    <script src="js/message.js"></script>
+
+    <script src="js/common.js"></script>
+
+    <script src="js/jquery.params.js"></script>
+
+
+    <script type="text/javascript">
+        $(function() {
+            loadTopNav();
+            loadFootNav()
+        })
+
+        function publish() {
+            var token = localStorage.getItem("token");
+            if (token == null && token != "") {
+                getInfoMsg("请先登录再尝试");
+                sleep(3000);
+                window.location.href = "login.html";
+                return;
+            }
+            var name = getValue("name");
+            var jobType = getSelectText("job-type");
+            var jobCategory = getSelectValue("select-category");
+            var city = getValue("city");
+            var gender = getSelectText("gender");
+            var salary = getSelectText("salary");
+            var email = getValue("email");
+            var education = getSelectText("education");
+            var workExperience = getSelectText("work-experience");
+            var introduce = getValue("introduce");
+            var address = getValue("address");
+            var benefit = "";
+
+            // 获取复选框的值
+            $("input:checkbox[name=benefit]:checked").each(function(i){              
+                benefit = benefit + $(this).val() + ",";
+            })
+            
+            // 非空判断
+            if (name == null || jobType == null || city == null || gender == null || salary == null || email == null
+                || education == null || workExperience == null || introduce == null || benefit == "" || address == null) {
+                getInfoMsg("请输入完整信息");
+                return;
+            }
+
+            var length = benefit.length;
+            benefit = benefit.substring(0, length - 1);
+
+            if (!checkEmail(email)) {
+                return;
+            }
+            var jobDTO = {
+                "name":name,
+                "jobType":jobType,
+                "jobCategory":jobCategory,
+                "salary":salary,
+                "workExperience":workExperience,
+                "education":education,
+                "gender":gender,
+                "city":city,
+                "benefit":benefit,
+                "introduce":introduce,
+                "email":email,
+                "creator":token,
+                "address":address,
+            };
+            $.ajax({
+                type:"POST",
+                async:true,              
+                url:defaultUrl + "job/saveJob",
+                headers:{"token":token},
+                data:JSON.stringify(jobDTO),
+                contentType:"application/json;charset=utf-8",
+                dataType:"json",
+                crossDomain: true,
+                success:function(data) {
+                    if (data.code == 200) {
+                        getSuccessMsg("发布成功");
+                    } else {
+                        getInfoMsg(data.data);
+                    }
+                },
+                error:error(),
+            })
+        }
+
+        
+    </script>
+</body>
+</html>
