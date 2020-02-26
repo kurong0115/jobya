@@ -1,4 +1,6 @@
-var defaultUrl="http://localhost:8888/";
+//var defaultUrl="http://localhost:8888/";
+
+var defaultUrl="http://120.24.48.43:8888/";
 
 function getSuccessMsg(msg) {
     $.message({
