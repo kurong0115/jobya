@@ -81,34 +81,50 @@
  
                 <div class="col-12 mt-3">
                     <div class="custom-form p-4 border rounded">
-                        <img src="images/employers/img-1.jpg" class="img-fluid avatar avatar-medium d-block mx-auto rounded-pill" alt="">
+                        <!-- <img src="images/employers/img-1.jpg" class="img-fluid avatar avatar-medium d-block mx-auto rounded-pill" alt=""> -->
+                        <img onclick="uploadHead.click()" id="head-image" src="images/icon.jpg" class="img-fluid avatar avatar-medium d-block mx-auto rounded-pill" alt="">
+                        <input type="file" name="file" style="display: none;" id="uploadHead" onchange="getFileName()"/>
+                        <input type="hidden" name="head" style="display: none;" id="icon" value=""/>
                         <form>
                             <div class="row mt-4">
                                 <div class="col-md-4">
                                     <div class="form-group app-label">
-                                        <label class="text-muted">First Name<span class="text-danger">*</span> :</label>
-                                        <input id="first-name" type="text" name="name" class="form-control resume" placeholder="First Name :">
+                                        <label class="text-muted">姓名<span class="text-danger">*</span> :</label>
+                                        <input id="name" type="text" name="name" class="form-control resume" placeholder="Name :">
                                     </div>
                                 </div>
 
                                 <div class="col-md-4">
                                     <div class="form-group app-label">
-                                        <label class="text-muted">Middle Name<span class="text-danger">*</span> :</label>
-                                        <input id="middle-name" type="text" class="form-control resume" placeholder="Middle Name :">
+                                        <label class="text-muted">年龄<span class="text-danger">*</span> :</label>
+                                        <input id="age" type="number" class="form-control resume" placeholder="Age :">
                                     </div>
                                 </div>
 
                                 <div class="col-md-4">
                                     <div class="form-group app-label">
-                                        <label class="text-muted">Surname<span class="text-danger">*</span> :</label>
-                                        <input id="surname-name" type="text" class="form-control resume" placeholder="Surname :">
+                                        <label class="text-muted">性别<span class="text-danger">*</span> :</label>
+                                        <div class="form-button">
+                                            <select class="nice-select rounded">
+                                                <!-- <option data-display="sex">Sex</option> -->
+                                                <option value="1">男</option>
+                                                <option value="2">女</option>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
 
                                 <div class="col-md-4">
                                     <div class="form-group app-label">
-                                        <label class="text-muted">Date Of Birth<span class="text-danger">*</span> :</label>
-                                        <input id="date-of-birth" type="text" class="form-control resume" placeholder="13-02-1999">
+                                        <label class="text-muted">电话号码<span class="text-danger">*</span> :</label>
+                                        <input id="phone" type="text" class="form-control resume" placeholder="Phone :">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group app-label">
+                                        <label class="text-muted">邮箱<span class="text-danger">*</span> :</label>
+                                        <input id="email" type="email" class="form-control resume" placeholder="Email">
                                     </div>
                                 </div>
                                 
@@ -124,58 +140,50 @@
                                         
                                     
 
-                                <div class="col-md-4">
-                                    <div class="form-group app-label">
-                                        <label class="text-muted">Sex<span class="text-danger">*</span> :</label>
-                                        <div class="form-button">
-                                            <select class="nice-select rounded">
-                                                <option data-display="sex">Sex</option>
-                                                <option value="1">Male</option>
-                                                <option value="2">Female</option>
-                                                <option value="3">Other</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
+                                
 
                                 <div class="col-md-4">
                                     <div class="form-group app-label">
                                         <label class="text-muted">Marital Status</label>
                                         <div class="form-button">
                                             <select class="nice-select rounded">
-                                                <option data-display="Status">Status</option>
-                                                <option value="1">Unmarried</option>
-                                                <option value="2">Married</option>
+                                                <!-- <option data-display="Status">Status</option> -->
+                                                <option value="0">未婚</option>
+                                                <option value="1">已婚</option>
                                             </select>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
 
-            <div class="row mt-5">
-                <div class="col-12">
-                    <h5 class="text-dark">Contact Information :</h5>
-                </div>
-
-                <div class="col-12 mt-3">
-                    <div class="custom-form p-4 border rounded">
-                        <form>
-                            <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group app-label">
-                                        <label class="text-muted">City</label>
+                                        <label class="text-muted">学历</label>
+                                        <div class="form-button">
+                                            <select class="nice-select rounded" id="education">
+                                                <option value="1">初中及以下</option>
+                                                <option value="2">中专/中技</option>
+                                                <option value="3">高中</option>
+                                                <option value="4">大专</option>
+                                                <option value="5">本科</option>
+                                                <option value="6">硕士</option>
+                                                <option value="7">博士</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group app-label">
+                                        <label class="text-muted">工作经验</label>
                                         <div class="form-button">
                                             <select class="nice-select rounded">
-                                                <option data-display="City">City</option>
-                                                <option value="1">Abilene</option>
-                                                <option value="2">Babbitt</option>
-                                                <option value="3">Cape Coral</option>
-                                                <option value="4">Dallas</option>
-                                                <option value="5">Eloy</option>
+                                                <option value="1">在校生</option>
+                                                <option value="2">应届生</option>
+                                                <option value="3">1年以内</option>
+                                                <option value="4">1-3年</option>
+                                                <option value="5">3-5年</option>
+                                                <option value="6">5-10年</option>
+                                                <option value="7">10年以上</option>
                                             </select>
                                         </div>
                                     </div>
@@ -183,63 +191,19 @@
 
                                 <div class="col-md-4">
                                     <div class="form-group app-label">
-                                        <label class="text-muted">State</label>
-                                        <div class="form-button">
-                                            <select class="nice-select rounded">
-                                                <option data-display="State">State</option>
-                                                <option value="1">Alabama</option>
-                                                <option value="3">Hawaii</option>
-                                                <option value="4">Maine</option>
-                                                <option value="5">Oregon</option>
-                                            </select>
-                                        </div>
+                                        <label class="text-muted">求职意向</label>
+                                        <input id="jobIntension" type="text" class="form-control resume" placeholder="Job Intension">
                                     </div>
                                 </div>
 
                                 <div class="col-md-4">
                                     <div class="form-group app-label">
-                                        <label class="text-muted">Country</label>
-                                        <div class="form-button">
-                                            <select class="nice-select rounded">
-                                                <option data-display="Country">Country</option>
-                                                <option value="1">Alabama</option>
-                                                <option value="2">Delaware</option>
-                                                <option value="3">Iowa</option>
-                                                <option value="4">Missouri</option>
-                                                <option value="5">New York</option>
-                                                <option value="6">Utah</option>
-                                            </select>
-                                        </div>
+                                        <label class="text-muted">意向城市</label>
+                                        <input id="city" type="text" class="form-control resume" placeholder="City">
                                     </div>
                                 </div>
 
-                                <div class="col-md-4">
-                                    <div class="form-group app-label">
-                                        <label class="text-muted">Phone</label>
-                                        <input id="phone" type="number" class="form-control resume" placeholder="Phone No. :">
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4">
-                                    <div class="form-group app-label">
-                                        <label class="text-muted">E-mail</label>
-                                        <input id="e-mail" type="email" name="email" class="form-control resume" placeholder="Email ID :">
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4">
-                                    <div class="form-group app-label">
-                                        <label class="text-muted">Website</label>
-                                        <input id="website" type="url" name="url" class="form-control resume" placeholder="www.example.com">
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-12">
-                                    <div class="form-group app-label">
-                                        <label>Address :</label>
-                                        <textarea id="address" rows="4" class="form-control resume" placeholder=""></textarea>
-                                    </div>
-                                </div>
+                                
                             </div>
                         </form>
                     </div>
@@ -385,7 +349,7 @@
             
 
             <div class="row">
-                <div class="col-12 mt-5">
+                <!-- <div class="col-12 mt-5">
                     <h5 class="text-dark">Skills :</h5>
                 </div>
                 
@@ -409,7 +373,7 @@
                             </div>
                         </form>
                     </div>
-                </div>
+                </div> -->
                 
                 <div class="col-12 mt-4">
                     <input type="submit" id="submit" name="send" class="submitBnt btn btn-primary" value="Submit Resume">
