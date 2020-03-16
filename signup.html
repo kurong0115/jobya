@@ -24,6 +24,8 @@
     
         <!-- Custom  Css -->
         <link rel="stylesheet" type="text/css" href="css/style.css" />
+
+        <link rel="stylesheet" type="text/css" href="css/notiflix-2.1.2.min.css"/>
         <!-- <base href="http://localhost:8888/" /> -->
     </head>
 
@@ -139,6 +141,8 @@
 
         <script src="js/common.js"></script>
 
+        <script src="js/notiflix-2.1.2.min.js"></script>
+
         <script type="text/javascript">
 
             var time=60;
@@ -195,6 +199,7 @@
                 var password = getValue("password");
                 var email = getValue("email");
                 var phone = getValue("phone");
+                var icon = "images/icon.jpg";
                 var verification = getValue("verification");
                 if (userName == "" || password == "" || email == "" || phone == "" || verification == "") {
                     getInfoMsg("请输入完整信息");
@@ -209,6 +214,7 @@
                         "password":password,
                         "email":email,
                         "phone":phone,
+                        "icon":icon
                     },
                     "verification":verification
                 };
@@ -222,7 +228,14 @@
                     crossDomain: true,
                     success:function(data) {
                         if (data.code == 200) {
-                            getSuccessMsg(data.message);
+                            Notiflix.Report.Success(
+                                '注册成功',
+                                ' ',
+                                '确定',
+                                function () {
+                                    window.location.href="login.html";
+                                }
+                            );
                         } else {
                             getInfoMsg(data.data);
                         }

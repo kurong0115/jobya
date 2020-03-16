@@ -1,0 +1,163 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Jobya - 确定公司</title>
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta name="author" content="Themesdesign" />
+
+    <link rel="shortcut icon" href="images/favicon.ico">    
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+
+    <!--Material Icon -->
+    <link rel="stylesheet" type="text/css" href="css/materialdesignicons.min.css" />
+
+    <link rel="stylesheet" type="text/css" href="css/selectize.css" />
+
+    <link rel="stylesheet" type="text/css" href="css/nice-select.css" />
+
+    <!-- Custom  Css -->
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+
+    <link rel="stylesheet" type="text/css" href="css/sweetalert.css"/>
+
+    <link rel="stylesheet" type="text/css" href="css/notiflix-2.1.2.min.css"/>
+
+
+</head>
+
+<body>
+    <!-- Loader -->
+    <div id="preloader">
+        <div id="status">
+            <div class="spinner">
+                <div class="double-bounce1"></div>
+                <div class="double-bounce2"></div>
+            </div>
+        </div>
+    </div>
+    <!-- Loader -->
+    
+    <div class="back-to-home rounded d-none d-sm-block">
+        <a href="index.html" class="text-white rounded d-inline-block text-center"><i class="mdi mdi-home"></i></a>
+    </div>
+
+    <!-- Hero Start -->
+    <section class="vh-100" style="background: url('images/loginbg.jpg') center center;">
+
+        <div class="home-center">
+            <div class="home-desc-center">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-4 col-md-6">
+                            <div class="login_page bg-white shadow rounded p-4">
+                                <div class="text-center">
+                                    <h4 class="mb-4">验证企业信息</h4>  
+                                </div>
+                                <form class="login-form">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <p class="text-muted">输入企业的社会统一信用编码</p>
+                                            <div class="form-group position-relative">
+                                                <!-- <label>社会统一信用编码 <span class="text-danger">*</span></label> -->
+                                                <input type="text" id="uniformCreditCode" class="form-control" placeholder="Enter Your UniformCreditCode" name="uniformCreditCode" required="">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <input type="button" value="绑定" class="btn btn-primary w-100" onclick="bindCompany()"></input>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div> <!--end col-->
+                    </div><!--end row-->
+                </div> <!--end container-->
+            </div>
+        </div>
+    </section><!--end section-->
+    <!-- Hero End -->
+
+    <!-- javascript -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/jquery.easing.min.js"></script>
+    <script src="js/plugins.js"></script>
+
+    <!-- selectize js -->
+    <script src="js/selectize.min.js"></script>
+
+    <script src="js/jquery.nice-select.min.js"></script>
+
+    <script src="js/app.js"></script>
+
+    <script src="js/message.js"></script>
+
+    <script src="js/common.js"></script>
+
+    <script src="js/jquery.params.js"></script>
+
+    <script src="js/sweetalert-dev.js"></script>
+
+    <script src="js/citySelect.js"></script>
+
+    <script src="js/notiflix-2.1.2.min.js"></script>
+
+    <script>
+        $(function(){
+            var user = JSON.parse(localStorage.getItem("userInfo"));
+            if (user == null) {
+                getInfoMsg("请先登录");
+                window.open("login.html");
+                return;
+            }
+        })
+
+        function bindCompany() {
+            var uniformCreditCode = getValue("uniformCreditCode");
+            if (uniformCreditCode == null || uniformCreditCode == true || uniformCreditCode == "") {
+                getInfoMsg("请先输入社会信用编码");
+                return;
+            }
+            var company = getCompanyByUniformCreditCode();
+            var user = JSON.parse(localStorage.getItem("userInfo"));
+            if (company == null) {
+                Notiflix.Confirm.Show(
+                    '确定',
+                    '该站点不存在该公司信息,是否现在录入？',
+                    '确定',
+                    '取消',
+                    function(){ 
+                        window.location.href = "post-a-company.html";
+                    },function(){ 
+                        // No button callbackalert('If you say so...');
+                    }
+                );
+                return;
+            } else {
+                $.ajax({
+                    type:"POST",
+                    async:true,
+                    url:defaultUrl + "user/bindCompany",
+                    data:{
+                        "companyNo":company.companyNo,
+                        "userId":user.userId
+                    },
+                    dataType:"json",
+                    success:function(data) {
+                        if (data.code == 200) {
+                            getSuccessMsg(data.message);
+                        } else {
+                            getInfoMsg(data.data);
+                        }
+                    },
+                })
+            }
+        }
+    </script>
+</body>
+</html>

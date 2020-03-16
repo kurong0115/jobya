@@ -27,6 +27,8 @@
     <!-- Custom  Css -->
     <link rel="stylesheet" type="text/css" href="css/style.css" />
 
+    <link rel="stylesheet" type="text/css" href="css/notiflix-2.1.2.min.css"/>
+
 </head>
 
 <body>
@@ -85,10 +87,25 @@
                                             <input type="text" id="job-name" class="form-control rounded registration-input-box" placeholder="职位名称">
                                         </div>
                                     </div>
-                                    <div class="col-lg-3 col-md-6">
+                                    <!-- <div class="col-lg-3 col-md-6">
                                         <div class="registration-form-box">
                                             <i class="fa fa-location-arrow"></i>
                                             <input type="text" id="city" class="form-control rounded registration-input-box" placeholder="城市">
+                                        </div>
+                                    </div> -->
+                                    <div class="col-lg-3 col-md-6">
+                                        <div class="registration-form-box">
+                                            <i class="fa fa-location-arrow"></i>
+                                            <select id="select-country" class="demo-default">
+                                                <option value="">City</option>
+                                                <option>北京</option>
+                                                <option>天津</option>
+                                                <option>上海</option>
+                                                <option>重庆</option>
+                                                <option>石家庄</option><option>张家口</option><option>承德</option><option>秦皇岛</option><option>唐山</option><option>廊坊</option><option>保定</option><option>衡水</option><option>沧州</option><option>邢台</option><option>邯郸</option>
+                                                <option>太原</option><option>朔州</option><option>大同</option><option>阳泉</option><option>长治</option><option>晋城</option><option>忻州</option><option>晋中</option><option>临汾</option><option>吕梁</option><option>运城</option>
+                                                <option>呼和浩特</option><option>包头</option><option>乌海</option><option>赤峰</option><option>通辽</option><option>呼伦贝尔</option><option>鄂尔多斯</option><option>乌兰察布</option><option>巴彦淖尔</option><option>兴安盟</option><option>锡林郭勒盟</option><option>阿拉善盟</option><option>沈阳</option><option>朝阳</option><option>阜新</option><option>铁岭</option><option>抚顺</option><option>本溪</option><option>辽阳</option><option>鞍山</option><option>丹东</option><option>大连</option><option>营口</option><option>盘锦</option><option>锦州</option><option>葫芦岛</option><option>长春</option><option>白城</option><option>松原</option><option>吉林</option><option>四平</option><option>辽源</option><option>通化</option><option>白山</option><option>延边州</option><option>哈尔滨</option><option>齐齐哈尔</option><option>七台河</option><option>黑河</option><option>大庆</option><option>鹤岗</option><option>伊春</option><option>佳木斯</option><option>双鸭山</option><option>鸡西</option><option>牡丹江</option><option>绥化</option><option>大兴安岭</option><option>南京</option><option>徐州</option><option>连云港</option><option>宿迁</option><option>淮安</option><option>盐城</option><option>扬州</option><option>泰州</option><option>南通</option><option>镇江</option><option>常州</option><option>无锡</option><option>苏州</option><option>杭州</option><option>湖州</option><option>嘉兴</option><option>舟山</option><option>宁波</option><option>绍兴</option><option>衢州</option><option>金华</option><option>台州</option><option>温州</option><option>丽水</option><option>合肥</option><option>宿州</option><option>淮北</option><option>亳州</option><option>阜阳</option><option>蚌埠</option><option>淮南</option><option>滁州</option><option>马鞍山</option><option>芜湖</option><option>铜陵</option><option>安庆</option><option>黄山</option><option>六安</option><option>巢湖</option><option>池州</option><option>宣城</option><option>福州</option><option>南平</option><option>莆田</option><option>三明</option><option>泉州</option><option>厦门</option><option>漳州</option><option>龙岩</option><option>宁德</option><option>南昌</option><option>九江</option><option>景德镇</option><option>鹰潭</option><option>新余</option><option>萍乡</option><option>赣州</option><option>上饶</option><option>抚州</option><option>宜春</option><option>吉安</option><option>济南</option><option>青岛</option><option>聊城</option><option>德州</option><option>东营</option><option>淄博</option><option>潍坊</option><option>烟台</option><option>威海</option><option>日照</option><option>临沂</option><option>枣庄</option><option>济宁</option><option>泰安</option><option>莱芜</option><option>滨州</option><option>菏泽</option><option>郑州</option><option>开封</option><option>三门峡</option><option>洛阳</option><option>焦作</option><option>新乡</option><option>鹤壁</option><option>安阳</option><option>濮阳</option><option>商丘</option><option>许昌</option><option>漯河</option><option>平顶山</option><option>南阳</option><option>信阳</option><option>周口</option><option>驻马店</option><option>济源</option><option>武汉</option><option>十堰</option><option>襄阳</option><option>荆门</option><option>孝感</option><option>黄冈</option><option>鄂州</option><option>黄石</option><option>咸宁</option><option>荆州</option><option>宜昌</option><option>随州</option><option>仙桃</option><option>潜江</option><option>天门</option><option>神农架林区</option><option>恩施州</option><option>长沙</option><option>张家界</option><option>常德</option><option>益阳</option><option>岳阳</option><option>株洲</option><option>湘潭</option><option>衡阳</option><option>郴州</option><option>永州</option><option>邵阳</option><option>怀化</option><option>娄底</option><option>湘西州</option><option>广州</option><option>深圳</option><option>清远</option><option>韶关</option><option>河源</option><option>梅州</option><option>潮州</option><option>汕头</option><option>揭阳</option><option>汕尾</option><option>惠州</option><option>东莞</option><option>珠海</option><option>中山</option><option>江门</option><option>佛山</option><option>肇庆</option><option>云浮</option><option>阳江</option><option>茂名</option><option>湛江</option><option>南宁</option><option>桂林</option><option>柳州</option><option>梧州</option><option>贵港</option><option>玉林</option><option>钦州</option><option>北海</option><option>防城港</option><option>崇左</option><option>百色</option><option>河池</option><option>来宾</option><option>贺州</option><option>成都</option><option>广元</option><option>绵阳</option><option>德阳</option><option>南充</option><option>广安</option><option>遂宁</option><option>内江</option><option>乐山</option><option>自贡</option><option>泸州</option><option>宜宾</option><option>攀枝花</option><option>巴中</option><option>达州</option><option>资阳</option><option>眉山</option><option>雅安</option><option>阿坝州</option><option>甘孜州</option><option>凉山州</option><option>海口</option><option>三亚</option><option>文昌</option><option>琼海</option><option>万宁</option><option>五指山</option><option>东方</option><option>儋州</option><option>三沙</option><option>贵阳</option><option>六盘水</option><option>遵义</option><option>安顺</option><option>毕节</option><option>铜仁</option><option>黔东南州</option><option>黔南州</option><option>黔西南州</option><option>昆明</option><option>曲靖</option><option>玉溪</option><option>保山</option><option>昭通</option><option>丽江</option><option>思茅</option><option>临沧</option><option>德宏州</option><option>怒江州</option><option>迪庆州</option><option>大理州</option><option>楚雄州</option><option>红河州</option><option>文山州</option><option>西双版纳</option><option>拉萨</option><option>那曲</option><option>昌都</option><option>林芝</option><option>山南</option><option>日喀则</option><option>阿里</option><option>西安</option><option>延安</option><option>铜川</option><option>渭南</option><option>咸阳</option><option>宝鸡</option><option>汉中</option><option>榆林</option><option>安康</option><option>商洛</option><option>兰州</option><option>嘉峪关</option><option>白银</option><option>天水</option><option>武威</option><option>酒泉</option><option>张掖</option><option>庆阳</option><option>平凉</option><option>定西</option><option>陇南</option><option>临夏州</option><option>甘南州</option><option>西宁</option><option>海东</option><option>海北州</option><option>海南州</option><option>黄南州</option><option>果洛州</option><option>玉树州</option><option>海西州</option><option>银川</option><option>石嘴山</option><option>吴忠</option><option>固原</option><option>中卫</option><option>乌鲁木齐</option><option>克拉玛依</option><option>喀什</option><option>阿克苏</option><option>和田</option><option>吐鲁番</option><option>哈密</option><option>克孜勒苏柯州</option><option>博尔塔拉州</option><option>昌吉州</option><option>巴音郭楞州</option><option>伊犁州</option><option>塔城</option><option>阿勒泰</option><option>香港</option><option>澳门</option><option>台北</option><option>高雄</option><option>台中</option><option>花莲</option><option>基隆</option><option>嘉义</option><option>金门</option><option>连江</option><option>苗栗</option><option>南投</option><option>澎湖</option><option>屏东</option><option>台东</option><option>台南</option><option>桃园</option><option>新竹</option><option>宜兰</option><option>云林</option><option>彰化</option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="col-lg-3 col-md-6">
@@ -147,7 +164,7 @@
                                     </div> -->
                                     <div class="col-lg-3 col-md-6">
                                         <div class="registration-form-box">
-                                            <input type="button" onclick="listJob()" id="submit" name="send" class="submitBnt btn btn-primary btn-block" value="Submit">
+                                            <input type="button" onclick="findJob()" id="submit" name="send" class="submitBnt btn btn-primary btn-block" value="Submit">
                                         </div>
                                     </div>
                                 </div>
@@ -165,6 +182,7 @@
                     <div class="show-results mt-4">
                         <div class="float-left">
                             <h5 class="text-dark mb-0 pt-2">找到 <span id="job-total">240</span>个匹配的职位</h5>
+                            <input type="hidden" value="1" id="pageNum"/>
                         </div>
                         <!-- <div class="sort-button float-right">
                             <select class="nice-select rounded">
@@ -484,7 +502,7 @@
             <div class="row">
                 <div class="col-lg-12 mt-4 pt-2">
                     <nav aria-label="Page navigation example">
-                        <ul class="pagination job-pagination mb-0 justify-content-center">
+                        <ul class="pagination job-pagination mb-0 justify-content-center" id="pagination">
                             <li class="page-item disabled">
                                 <a class="page-link" href="#" tabindex="-1" aria-disabled="true">
                                     <i class="mdi mdi-chevron-double-left f-15"></i>
@@ -537,10 +555,13 @@
 
     <script src="js/jquery.params.js"></script>
 
+    <script src="js/notiflix-2.1.2.min.js"></script>
+
     <script>
         $(function() {
             loadTopNav();
-            loadFootNav()
+            loadFootNav();
+            setName();
             setValue();
             listJob();
         })
@@ -554,7 +575,17 @@
                 $("#job-name").val(name);
             }
             if (city != "null") {
-                $("#city").val(city);
+                //$("#city").val(city);
+                var $select = $('#select-country').selectize({
+                    create: true,
+                    sortField: {
+                        field: 'text',
+                        direction: 'asc'
+                    },
+                    dropdownParent: 'body'
+                });
+                var control = $select[0].selectize;
+                control.addItem(city); 
             }
             if (jobCategory != "null") {
                 var $select = $('#select-category').selectize({
@@ -575,6 +606,17 @@
             window.location.href="job-details.html";
         }
 
+        function findJob() {
+            $("#pageNum").val(1);
+            listJob();
+        }
+
+        function apply(jobNo) {
+            if (getUser() == null) {
+                jump();
+            }
+        }
+
         function listJob() {
             var gender = $("input:radio[name=gender]:checked").val();
             var salary = $("input:radio[name=salary]:checked").val();
@@ -582,7 +624,7 @@
             var workExperience = $("input:radio[name=workExperience]:checked").val();
             var education = $("input:radio[name=education]:checked").val();
             var name = getValue("job-name");
-            var city = getSelectValue("city");
+            var city = getSelectValue("select-country");
             var jobCategory = getSelectValue("select-category");
             $.ajax({
                 type:"GET",
@@ -597,7 +639,8 @@
                     "education":education,
                     "name":name,
                     "city":city,
-                    "jobCategory":jobCategory
+                    "jobCategory":jobCategory,
+                    "pageNum":getValue("pageNum")
                 },
                 success:function(data) {
                     if (data.code == 200) {
@@ -630,12 +673,13 @@
                                     '</div>' + 
                                     
                                     '<div class="apply-button p-3 border-top">' + 
-                                        '<a href="#" class="btn btn-primary btn-sm">Apply Now</a>' + 
+                                        '<a href="javascript:apply('+jobList[i].jobNo+')" class="btn btn-primary btn-sm">立即申请</a>' + 
                                     '</div>' + 
                                 '</div>' + 
                             '</div>';
                             
                             $("#job-grid").append(job);
+                            generatePaginaionNav(data.pagination);
                         }                                           
                     } else {
                         getInfoMsg(data.data);

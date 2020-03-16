@@ -27,6 +27,8 @@
     <!-- Custom  Css -->
     <link rel="stylesheet" type="text/css" href="css/style.css" />
 
+    <link rel="stylesheet" type="text/css" href="css/notiflix-2.1.2.min.css"/>
+
 </head>
 
 <body>
@@ -82,7 +84,7 @@
                 <div class="col-lg-8 col-md-7">
                     <div class="job-detail border rounded p-4">
                         <div class="job-detail-content">
-                            <img id="company-icon" src="images/featured-job/img-4.png" alt="" class="img-fluid float-left mr-md-3 mr-2 mx-auto d-block" width="100px" height="100px">
+                            <img id="company-icon" src="images/featured-job/img-4.png" alt="" class="img-fluid float-left mr-md-3 mr-2 mx-auto d-block" width="120px" height="120px">
                             <div class="job-detail-com-desc overflow-hidden d-block">
                                 <h4 class="mb-2"><a href="#" class="text-dark" id="job-title">Web Developer</a></h4>
                                 <p class="text-muted mb-0"><i class="mdi mdi-link-variant mr-2" id="company-name"></i></p>
@@ -287,15 +289,7 @@
                             <h4 class="widget-title">福利</h4>
                             <div class="tagcloud mt-4" id="benefit">
                                 <a href="jvascript:void(0)" class="rounded">Business</a>
-                                <a href="jvascript:void(0)" class="rounded">Finance</a>
-                                <a href="jvascript:void(0)" class="rounded">Marketing</a>
-                                <a href="jvascript:void(0)" class="rounded">Fashion</a>
-                                <a href="jvascript:void(0)" class="rounded">Bride</a>
-                                <a href="jvascript:void(0)" class="rounded">Lifestyle</a>
-                                <a href="jvascript:void(0)" class="rounded">Travel</a>
-                                <a href="jvascript:void(0)" class="rounded">Beauty</a>
-                                <a href="jvascript:void(0)" class="rounded">Video</a>
-                                <a href="jvascript:void(0)" class="rounded">Audio</a>
+                                
                             </div>
                         </div>
                         <!-- TAG CLOUDS -->
@@ -323,33 +317,7 @@
     </section>
     <!-- JOB DETAILS END -->
 
-    <!-- subscribe start -->
-    <section class="section bg-light">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-4 col-md-5">
-                    <div class="float-left position-relative notification-icon mr-2">
-                        <i class="mdi mdi-bell-outline text-primary"></i>
-                        <span class="badge badge-pill badge-danger">1</span>
-                    </div>
-                    <h5 class="mt-2 mb-0">Your Job Notification</h5>
-                </div>
-                <div class="col-lg-8 col-md-7 mt-4 mt-sm-0">
-                    <form>
-                        <div class="form-group mb-0">
-                            <div class="input-group mb-0">
-                                <input name="email" id="email" type="email" class="form-control" placeholder="Your email :" required="" aria-describedby="newssubscribebtn">
-                                <div class="input-group-append">
-                                    <button class="btn btn-primary submitBnt" type="submit" id="newssubscribebtn">Subscribe</button>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- subscribe end -->
+
 
 
     <!-- Back to top -->
@@ -377,10 +345,13 @@
 
     <script src="js/jquery.params.js"></script>
 
+    <script src="js/notiflix-2.1.2.min.js"></script>
+
     <script>
         $(function(){
             loadTopNav();
-            loadFootNav()
+            loadFootNav();
+            setName();
             var jobNo = $.query.get("jobNo")
             console.log(jobNo);
             if (jobNo == null || jobNo == true || jobNo == "") {
@@ -403,8 +374,11 @@
                     $("#company-icon").attr("src", icon);
                     $("#job-name").html(job.name);
                     $("#job-title").html(job.name);
-                    $("#company-name1").html(companyEntity.name);
+                    //$("#company-name1").html('<a href="company-detail.html?companyNo='+ companyEntity.companyNo +'"> '+ companyEntity.name + '</a>');
                     $("#company-name").html(companyEntity.name);
+                    $("#company-name1").click(function(){
+                        window.location.href="company-detail.html?companyNo=" + companyEntity.companyNo;
+                    });
                     $("#company-introduce").html(companyEntity.introduce);
                     $("#address").html(job.address);
                     $("#job-type").html(job.jobType);
@@ -426,6 +400,8 @@
             })
             
         })
+
+        
     </script>
 
 </body>

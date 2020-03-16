@@ -1,6 +1,6 @@
-//var defaultUrl="http://localhost:8888/";
+var defaultUrl="http://localhost:8888/";
 
-var defaultUrl="http://120.24.48.43:8888/";
+//var defaultUrl="http://120.24.48.43:8888/";
 
 function getSuccessMsg(msg) {
     $.message({
@@ -113,13 +113,13 @@ function sleep(n) {
 
 // 加载导航条
 function loadTopNav() {
-    $("#topnav").empty();
+    //$("#topnav").empty();
     $.ajax({
         type:"get",
         url:"topnav.html",
-        async:true,
+        async:false,
         success:function(data){
-            $("#topnav").html(data);
+            $("#topnav").append(data);
         }
     });
 }
@@ -130,7 +130,7 @@ function loadFootNav() {
     $.ajax({
         type:"get",
         url:"footer.html",
-        async:true,
+        async:false,
         success:function(data){
             $(".footer footer-bar").html(data);
         }
@@ -141,17 +141,37 @@ function loadFootNav() {
  * 注销
  */
 function logout() {
-    swal({
-        title: "您确定要注销吗？",
-        type: "warning",
-        showCancelButton: true,
-        closeOnConfirm: false,
-        confirmButtonText: "是",
-        confirmButtonColor: "#ec6c62"
-    }, function() {
-        localStorage.removeItem("token");
-        swal("注销成功!");
-    });
+    Notiflix.Confirm.Show(
+        '确认',
+        '您确定要注销吗？',
+        '确定',
+        '取消',
+        function(){ 
+            localStorage.clear();
+            Notiflix.Report.Success(
+                '注销成功',
+                ' ',
+                '关闭',
+                function () {
+                    location.reload();
+                }
+            );
+        },function(){ 
+            // No button callbackalert('If you say so...');
+        }
+    );
+}
+
+function jump() {
+    Notiflix.Report.Info(
+        '请先登录后再尝试!!!',
+        ' ',
+        '关闭',
+        function () {
+            window.location.href = "login.html";
+        }
+    )
+    return;
 }
 
 function nav() {
@@ -159,4 +179,152 @@ function nav() {
     if (token == null) {
         $("#user-menu").html('<a href="login.html">登录|注册</a></li>');
     }
+}
+
+function getFileName(){
+    //
+    upload();
+}
+
+function getUser() {
+    var user = JSON.parse(localStorage.getItem("userInfo"));
+    return user;
+}
+
+function setName() {
+    var user = getUser();
+    if (user != null) {
+        $("#job-user-name").html(user.userName);
+    } else {
+        $("#user-menu").html('<a href="login.html">登录|注册</a>');
+    }
+}
+
+//文件上传
+function upload(){
+    var token = localStorage.getItem("token");
+    token = token.substring(1, token.length - 1);
+    $.ajax({
+        url: defaultUrl + "base/upload",
+        type: 'POST',
+        cache: false,
+        data: new FormData($('#ff')[0]),
+        processData: false,
+        contentType: false,
+        dataType:"json",
+        headers:{"token":token},
+        success : function(data) {
+            if (data.code == 200) {
+                $("#head-image").attr("src", "images/head/" + data.data);
+                $("#icon").val("images/head/" + data.data); 
+                getSuccessMsg("上传成功");
+            } else {
+                getFailMsg(data.message);
+            }
+        },error :function(data){
+            getFailMsg(data.message);
+        }
+    });
+} 
+
+
+// 根据社会信用id获取公司信息
+function getCompanyByUniformCreditCode() {
+    var uniformCreditCode = getValue("uniformCreditCode");
+    if (uniformCreditCode == null || uniformCreditCode == true || uniformCreditCode == "") {
+        getInfoMsg("请先输入社会信用编码");
+        return;
+    }
+    var company;
+    var flag;
+    $.ajax({
+        type:"GET",
+        async:false,
+        url:defaultUrl + "company/getCompanyByUniformCreditCode",
+        dataType:"json",
+        data:{
+            "uniformCreditCode":uniformCreditCode
+        },
+        success:function(data) {
+            if (data.code == 200) {
+                company = data.data.company;
+                if (company != null) {
+                    flag = true;
+                    $("#companyName").val(company.name);
+                    $("#companyNo").val(company.companyNo);
+                    getSuccessMsg("已检测");
+                } else {
+                    getInfoMsg("该站点不存在该公司信息");
+                }
+            }
+        }
+    });
+    if (flag) {
+        return company;
+    } else {
+        return null;
+    }
+    
+}
+{/* <li class="page-item disabled">
+    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">
+        <i class="mdi mdi-chevron-double-left f-15"></i>
+    </a>
+</li>
+<li class="page-item active"><a class="page-link" href="#">1</a></li>
+<li class="page-item"><a class="page-link" href="#">2</a></li>
+<li class="page-item"><a class="page-link" href="#">3</a></li>
+<li class="page-item"><a class="page-link" href="#">4</a></li>
+<li class="page-item">
+    <a class="page-link" href="#">
+        <i class="mdi mdi-chevron-double-right f-15"></i>
+    </a>
+</li> */}
+function generatePaginaionNav(pagination) {
+    $("#pagination").empty();
+    
+    var item = "";
+    var max = 1;
+    var currentPage = pagination.currentPage;
+    var total = pagination.total;
+    var pageSize = pagination.pageSize;
+    // 计算最大页码
+    max = total % pageSize == 0 ? parseInt(total / pageSize) : parseInt(total / pageSize) + 1;
+    var totalPage = pagination.currentPage + 3 > max ? max : currentPage + 3;
+    item = item + '<li class="page-item">'+
+                        '<a class="page-link" href="javascript:getJobInfoByPage('+ (currentPage - 1) +',' + max + ')" tabindex="-1" aria-disabled="true">'+
+                            '<i class="mdi mdi-chevron-double-left f-15"></i>'+
+                        '</a>'+
+                    '</li>';
+    item = item + '<li class="page-item active"><a class="page-link" href="javascript:getJobInfoByPage('+ currentPage +',' + max + ')">'+currentPage+'</a></li>';
+    for (var i = currentPage + 1; i <= totalPage; i++) {
+        item = item + '<li class="page-item"><a class="page-link" href="javascript:getJobInfoByPage('+ i +',' + max + ')">' + i + '</a></li>';
+    }
+    item = item + '<li class="page-item">'+
+                        '<a class="page-link" href="javascript:getJobInfoByPage('+ (currentPage + 1) +',' + max + ')" tabindex="-1" aria-disabled="true">'+
+                            '<i class="mdi mdi-chevron-double-right f-15"></i>'+
+                        '</a>'+
+                    '</li>';
+    $("#pagination").append(item);
+}
+
+function getJobInfoByPage(pageNum,max) {
+    if (pageNum <= 0) {
+        Notiflix.Report.Info(
+            '不能再往前了!!!',
+            ' ',
+            '关闭'
+        )
+        return;
+    }
+    if (pageNum > max) {
+        Notiflix.Report.Info(
+            '已经是最后一页了',
+            ' ',
+            '关闭'
+        )
+        return;
+    }
+    $("#pageNum").val(pageNum);
+    listJob();
 }

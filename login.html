@@ -25,6 +25,8 @@
         <!-- Custom  Css -->
         <link rel="stylesheet" type="text/css" href="css/style.css" />
 
+        <link rel="stylesheet" type="text/css" href="css/notiflix-2.1.2.min.css"/>
+
         <link rel="stylesheet" type="text/css" href="css/sweetalert.css"/>
 
     </head>
@@ -128,14 +130,19 @@
 
         <script src="js/jquery.params.js"></script>
 
+        <script src="js/notiflix-2.1.2.min.js"></script>
+
         <script src="js/sweetalert-dev.js"></script>
 
         <script>
             $(function() {
                 var token = localStorage.getItem("token");
                 if (token != null) {
-                    alert("您已登录");
-                    window.location.href = "index.html";
+                    Notiflix.Report.Info(
+                        '您已登录',
+                        ' ',
+                        '关闭'
+                    );
                     return;
                 }
             })
@@ -158,13 +165,20 @@
                     dataType:"json",
                     success:function(data) {
                         if (data.code == 200) {
-                            var token = data.data;
-                            if (token != null) {
-                                getSuccessMsg("登陆成功");
+                            if (data.data.user != null) {
+                                var token = data.data.token;
                                 localStorage.clear();
                                 token = JSON.stringify(token);
                                 localStorage.setItem("token",token);
-                                window.location.href="index.html";
+                                localStorage.setItem("userInfo",JSON.stringify(data.data.user));
+                                Notiflix.Report.Success(
+                                    '登陆成功',
+                                    ' ',
+                                    '确定',
+                                    function () {
+                                        window.location.href="index.html";
+                                    }
+                                );
                             } else {
                                 getFailMsg("用户名或密码错误!!!");
                             }
