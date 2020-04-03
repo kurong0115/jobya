@@ -334,12 +334,6 @@
                                 '<div class="candidates-listing-btn mt-4">'+
                                     '<a href="javascript:viewProfile('+deliveryList[i].sender+','+ deliveryList[i].attachId+')" class="btn btn-primary-outline btn-sm">查看简历</a>'+
                                 '</div>'+
-                                '<div class="candidates-listing-btn mt-4">'+
-                                    '<a href="javascript:updateDeliveryState('+deliveryList[i].recordId+', 1)" class="btn btn-primary-outline btn-sm">初筛通过</a>'+
-                                '</div>'+
-                                '<div class="candidates-listing-btn mt-4">'+
-                                    '<a href="javascript:updateDeliveryState('+deliveryList[i].recordId+', 2)" class="btn btn-primary-outline btn-sm">初筛不通过</a>'+
-                                '</div>'+
                             '</div>'+
                         '</div>'+
                     '</div>'+
@@ -399,7 +393,7 @@
             var recordId = getValue("record-id");
             var state = getSelectValue("select-country");
             var user = JSON.parse(localStorage.getItem("userInfo"));
-            var receiver = user.userId;
+            var sender = user.userId;
             var deliveryRecord = null;
             $.ajax({
                 type:"GET",
@@ -410,7 +404,7 @@
                     "jobName":jobName,
                     "recordId":recordId,
                     "state":state,
-                    "receiver":receiver,
+                    "sender":sender,
                     "pageNum":getValue("pageNum")
                 },
                 success:function(data) {

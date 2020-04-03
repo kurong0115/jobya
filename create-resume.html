@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Jobya - 创建在线简历</title>
+    <title>Jobya - 在线简历</title>
     <meta name="description" content="" />
     <meta name="keywords" content="" />
     <meta name="author" content="Themesdesign" />
@@ -13,6 +13,8 @@
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
 
     <!--Material Icon -->
     <link rel="stylesheet" type="text/css" href="css/materialdesignicons.min.css" />
@@ -56,12 +58,12 @@
             <div class="row justify-content-center">
                 <div class="col-md-6">
                     <div class="text-center text-white">
-                        <h4 class="text-uppercase title mb-4">创建在线简历</h4>
+                        <h4 class="text-uppercase title mb-4">在线简历</h4>
                         <ul class="page-next d-inline-block mb-0">
                             <li><a href="index.html" class="text-uppercase font-weight-bold">首页</a></li>
                             
                             <li>
-                                <span class="text-uppercase text-white font-weight-bold">创建简历信息</span> 
+                                <span class="text-uppercase text-white font-weight-bold">简历信息</span> 
                             </li> 
                         </ul>
                     </div>
@@ -81,12 +83,14 @@
  
                 <div class="col-12 mt-3">
                     <div class="custom-form p-4 border rounded">
+                        <form id="ff">
                         <!-- <img src="images/employers/img-1.jpg" class="img-fluid avatar avatar-medium d-block mx-auto rounded-pill" alt=""> -->
                         <img onclick="uploadHead.click()" id="head-image" src="images/icon.jpg" class="img-fluid avatar avatar-medium d-block mx-auto rounded-pill" alt="">
                         <input type="file" name="file" style="display: none;" id="uploadHead" onchange="getFileName()"/>
-                        <input type="hidden" name="head" style="display: none;" id="icon" value=""/>
-                        <form>
+                        <input type="hidden" name="head" style="display: none;" id="icon" value="images/icon.jpg"/>
                             <div class="row mt-4">
+                                <input id="resumeId" type="hidden" value=""/>
+                                <input id="resume-id" type="hidden" value=""/>
                                 <div class="col-md-4">
                                     <div class="form-group app-label">
                                         <label class="text-muted">姓名<span class="text-danger">*</span> :</label>
@@ -97,7 +101,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group app-label">
                                         <label class="text-muted">年龄<span class="text-danger">*</span> :</label>
-                                        <input id="age" type="number" class="form-control resume" placeholder="Age :">
+                                        <input id="age" name="age" type="number" class="form-control resume" placeholder="Age :">
                                     </div>
                                 </div>
 
@@ -105,11 +109,18 @@
                                     <div class="form-group app-label">
                                         <label class="text-muted">性别<span class="text-danger">*</span> :</label>
                                         <div class="form-button">
-                                            <select class="nice-select rounded">
-                                                <!-- <option data-display="sex">Sex</option> -->
-                                                <option value="1">男</option>
-                                                <option value="2">女</option>
-                                            </select>
+                                            <!-- <select class="nice-select rounded" name="gender" id="gender">
+                                                <option data-display="Gender">Gender</option>
+                                                <option value="1" >男</option>
+                                                <option value="2" >女</option>
+                                            </select> -->
+                                            <div class="registration-form-box">
+                                                <select id="select-country">
+                                                    <option value="">Gender...</option>
+                                                    <option value="1" >男</option>
+                                                    <option value="2" >女</option>
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -117,49 +128,43 @@
                                 <div class="col-md-4">
                                     <div class="form-group app-label">
                                         <label class="text-muted">电话号码<span class="text-danger">*</span> :</label>
-                                        <input id="phone" type="text" class="form-control resume" placeholder="Phone :">
+                                        <input id="phone" name="phone" type="text" class="form-control resume" placeholder="Phone :">
                                     </div>
                                 </div>
 
                                 <div class="col-md-4">
                                     <div class="form-group app-label">
                                         <label class="text-muted">邮箱<span class="text-danger">*</span> :</label>
-                                        <input id="email" type="email" class="form-control resume" placeholder="Email">
+                                        <input id="email" name="email" type="email" class="form-control resume" placeholder="Email :">
                                     </div>
                                 </div>
-                                
-                                        <!-- <div class='col-md-4'>
-                                            <div class="form-group app-label">
-                                                <div class='input-group date' >
-                                                    <input type='text' class="form-control" id='datetimepicker3'/>
-                                                    <span class="input-group-addon"><span class="glyphicon glyphicon-time"></span>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div> -->
-                                        
-                                    
-
-                                
-
+                                                                    
                                 <div class="col-md-4">
                                     <div class="form-group app-label">
-                                        <label class="text-muted">Marital Status</label>
+                                        <label class="text-muted">婚姻状况<span class="text-danger">*</span></label>
                                         <div class="form-button">
-                                            <select class="nice-select rounded">
-                                                <!-- <option data-display="Status">Status</option> -->
+                                            <!-- <select class="nice-select rounded" name="maritalStatus" id="maritalStatus">
+                                                <option data-display="MaritalStatus">MaritalStatus</option>
                                                 <option value="0">未婚</option>
                                                 <option value="1">已婚</option>
-                                            </select>
+                                            </select> -->
+                                            <div class="registration-form-box">
+                                                <select id="select-category">
+                                                    <option value="">MaritalStatus...</option>
+                                                    <option value="0">未婚</option>
+                                                    <option value="1">已婚</option>
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="col-md-4">
                                     <div class="form-group app-label">
-                                        <label class="text-muted">学历</label>
+                                        <label class="text-muted">学历<span class="text-danger">*</span></label>
                                         <div class="form-button">
-                                            <select class="nice-select rounded" id="education">
+                                            <!-- <select class="nice-select rounded" id="education" name="education">
+                                                <option data-display="Education">学历</option>
                                                 <option value="1">初中及以下</option>
                                                 <option value="2">中专/中技</option>
                                                 <option value="3">高中</option>
@@ -167,16 +172,29 @@
                                                 <option value="5">本科</option>
                                                 <option value="6">硕士</option>
                                                 <option value="7">博士</option>
-                                            </select>
+                                            </select> -->
+                                            <div class="registration-form-box">
+                                                <select id="resume-education">
+                                                    <option value="">Education...</option>
+                                                    <option value="1">初中及以下</option>
+                                                    <option value="2">中专/中技</option>
+                                                    <option value="3">高中</option>
+                                                    <option value="4">大专</option>
+                                                    <option value="5">本科</option>
+                                                    <option value="6">硕士</option>
+                                                    <option value="7">博士</option>
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="col-md-4">
                                     <div class="form-group app-label">
-                                        <label class="text-muted">工作经验</label>
+                                        <label class="text-muted">工作经验<span class="text-danger">*</span></label>
                                         <div class="form-button">
-                                            <select class="nice-select rounded">
+                                            <!-- <select class="nice-select rounded" name="workExperience" id="workExperience">
+                                                <option data-display="WorkExperience">工作经验</option>
                                                 <option value="1">在校生</option>
                                                 <option value="2">应届生</option>
                                                 <option value="3">1年以内</option>
@@ -184,26 +202,49 @@
                                                 <option value="5">3-5年</option>
                                                 <option value="6">5-10年</option>
                                                 <option value="7">10年以上</option>
-                                            </select>
+                                            </select> -->
+                                            <div class="registration-form-box">
+                                                <select id="resume-work">
+                                                    <option value="">WorkExperience...</option>
+                                                    <option value="1">在校生</option>
+                                                    <option value="2">应届生</option>
+                                                    <option value="3">1年以内</option>
+                                                    <option value="4">1-3年</option>
+                                                    <option value="5">3-5年</option>
+                                                    <option value="6">5-10年</option>
+                                                    <option value="7">10年以上</option>
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="col-md-4">
                                     <div class="form-group app-label">
-                                        <label class="text-muted">求职意向</label>
-                                        <input id="jobIntension" type="text" class="form-control resume" placeholder="Job Intension">
+                                        <label class="text-muted">求职意向<span class="text-danger">*</span></label>
+                                        <input id="jobIntension" name="jobIntension" type="text" class="form-control resume" placeholder="Job Intension :">
                                     </div>
                                 </div>
 
                                 <div class="col-md-4">
                                     <div class="form-group app-label">
-                                        <label class="text-muted">意向城市</label>
-                                        <input id="city" type="text" class="form-control resume" placeholder="City">
+                                        <label class="text-muted">意向城市<span class="text-danger">*</span></label>
+                                        <input id="cityIntension" name="cityIntension" type="text" class="form-control resume" placeholder="City :">
                                     </div>
                                 </div>
 
-                                
+                                <div class="col-lg-12">
+                                    <div class="form-group app-label">
+                                        <label>自我介绍<span class="text-danger">*</span> :</label>
+                                        <textarea id="selfIntroduction" name="selfIntroduction" rows="4" class="form-control resume" placeholder="SelfIntroduction :"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="form-group app-label">
+                                        <label>具备技能<span class="text-danger">*</span> :</label>
+                                        <textarea id="skill" name="skill" rows="4" class="form-control resume" placeholder="Skill :"></textarea>
+                                    </div>
+                                </div>
                             </div>
                         </form>
                     </div>
@@ -212,171 +253,470 @@
 
             <div class="row">
                 <div class="col-lg-12">
-                    <h5 class="text-dark mt-5">Education Details :</h5>
+                    <h5 class="text-dark mt-5">教育经历 :</h5>
                 </div>
 
                 <div class="col-12 mt-3">
                     <div class="custom-form p-4 border rounded">
-                        <form>
+                        <form id="education">
                             <div class="row">
-                                <div class="col-md-6">
+                                <input id="education-id" type="hidden" value=""/>
+                                <div class="col-md-3">
                                     <div class="form-group app-label">
-                                        <label class="text-muted">Graduation</label>
-                                        <input id="graduation" type="text" class="form-control resume" placeholder="">
+                                        <label class="text-muted">毕业院校<span class="text-danger">*</span></label>
+                                        <input id="school" name="school" type="text" class="form-control resume" placeholder="School :">
                                     </div>
-                                </div>
-
-                                <div class="col-md-6">
+                                </div>       
+                                
+                                <div class="col-md-3">
                                     <div class="form-group app-label">
-                                        <label class="text-muted">University/College</label>
-                                        <input id="university/college" type="text" class="form-control resume" placeholder="">
+                                        <label class="text-muted">专业<span class="text-danger">*</span></label>
+                                        <input id="specialty" name="specialty" type="text" class="form-control resume" placeholder="Specialty :">
                                     </div>
-                                </div>
+                                </div> 
 
-                                <div class="col-lg-6">
+                                <div class="col-md-2">
                                     <div class="form-group app-label">
-                                        <label class="text-muted">Degree/Certification</label>
-                                        <input id="degree/certification" type="text" class="form-control resume" placeholder="">
+                                        <label class="text-muted">学历<span class="text-danger">*</span></label>
+                                        <div class="form-button">
+                                            <!-- <select class="nice-select rounded" name="degree" id="degree">
+                                                <option data-display="Education">学历</option>
+                                                <option value="1">初中及以下</option>
+                                                <option value="2">中专/中技</option>
+                                                <option value="3">高中</option>
+                                                <option value="4">大专</option>
+                                                <option value="5">本科</option>
+                                                <option value="6">硕士</option>
+                                                <option value="7">博士</option>
+                                            </select> -->
+                                            <div class="registration-form-box">
+                                                <select id="degree">
+                                                    <option value="">Education...</option>
+                                                    <option value="1">初中及以下</option>
+                                                    <option value="2">中专/中技</option>
+                                                    <option value="3">高中</option>
+                                                    <option value="4">大专</option>
+                                                    <option value="5">本科</option>
+                                                    <option value="6">硕士</option>
+                                                    <option value="7">博士</option>
+                                                </select>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-
-                                <div class="col-lg-6">
+                                </div> 
+                                
+                                <div class="col-lg-4">
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group app-label">
-                                                <label class="text-muted">Level</label>
-                                                <div class="form-button">
-                                                    <select class="nice-select rounded">
-                                                        <option data-display="Select">Select</option>
-                                                        <option value="1">Level-1</option>
-                                                        <option value="2">Level-2</option>
-                                                        <option value="3">Level-3</option>
-                                                        <option value="4">Level-4</option>
-                                                    </select>
-                                                </div>
+                                                <label class="text-muted">开始日期<span class="text-danger">*</span></label>
+                                                <input id="education-date-from" name="dateFrom" type="date" class="form-control resume" placeholder="01-Jan-2018">
                                             </div>
                                         </div>
 
                                         <div class="col-md-6">
                                             <div class="form-group app-label">
-                                                <label class="text-muted">Course Title</label>
-                                                <input id="course-title" type="text" class="form-control resume" placeholder="">
+                                                <label class="text-muted">截止日期<span class="text-danger">*</span></label>
+                                                <input id="education-date-to" name="dateTo" type="date" class="form-control resume" placeholder="31-March-2019">
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-
                                 <div class="col-lg-12">
                                     <div class="form-group app-label">
-                                        <label>Additional Information :</label>
-                                        <textarea id="addition-information" rows="4" class="form-control resume" placeholder=""></textarea>
+                                        <label>主要事迹<span class="text-danger">*</span> :</label>
+                                        <textarea id="education-remark" name="remark" rows="2" class="form-control resume" placeholder="Remark :"></textarea>
                                     </div>
                                 </div>
                             </div>
                         </form>
                     </div>
                 </div>
-            </div>
+
+                <div class="col-12 mt-3">
+                    <div class="custom-form p-4 border rounded">
+                        <form id="education">
+                            <div class="row">
+                                <input id="education-id1" type="hidden" value=""/>
+                                <div class="col-md-3">
+                                    <div class="form-group app-label">
+                                        <label class="text-muted">毕业院校<span class="text-danger">*</span></label>
+                                        <input id="school1" name="school" type="text" class="form-control resume" placeholder="School :">
+                                    </div>
+                                </div>       
+                                
+                                <div class="col-md-3">
+                                    <div class="form-group app-label">
+                                        <label class="text-muted">专业<span class="text-danger">*</span></label>
+                                        <input id="specialty1" name="specialty" type="text" class="form-control resume" placeholder="Specialty :">
+                                    </div>
+                                </div> 
+
+                                <div class="col-md-2">
+                                    <div class="form-group app-label">
+                                        <label class="text-muted">学历<span class="text-danger">*</span></label>
+                                        <div class="form-button">
+                                            <!-- <select class="nice-select rounded" name="degree" id="degree1">
+                                                <option data-display="Education">学历</option>
+                                                <option value="1">初中及以下</option>
+                                                <option value="2">中专/中技</option>
+                                                <option value="3">高中</option>
+                                                <option value="4">大专</option>
+                                                <option value="5">本科</option>
+                                                <option value="6">硕士</option>
+                                                <option value="7">博士</option>
+                                            </select> -->
+                                            <div class="registration-form-box">
+                                                <select id="degree1">
+                                                    <option value="">Education...</option>
+                                                    <option value="1">初中及以下</option>
+                                                    <option value="2">中专/中技</option>
+                                                    <option value="3">高中</option>
+                                                    <option value="4">大专</option>
+                                                    <option value="5">本科</option>
+                                                    <option value="6">硕士</option>
+                                                    <option value="7">博士</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> 
+                                
+                                <div class="col-lg-4">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group app-label">
+                                                <label class="text-muted">开始日期<span class="text-danger">*</span></label>
+                                                <input id="education-date-from1" name="dateFrom" type="date" class="form-control resume" placeholder="01-Jan-2018">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group app-label">
+                                                <label class="text-muted">截止日期<span class="text-danger">*</span></label>
+                                                <input id="education-date-to1" name="dateTo" type="date" class="form-control resume" placeholder="31-March-2019">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="form-group app-label">
+                                        <label>主要事迹<span class="text-danger">*</span> :</label>
+                                        <textarea id="education-remark1" name="remark" rows="2" class="form-control resume" placeholder="Remark :"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="col-12 mt-3">
+                    <div class="custom-form p-4 border rounded">
+                        <form id="education">
+                            <div class="row">
+                                <input id="education-id2" type="hidden" value=""/>
+                                <div class="col-md-3">
+                                    <div class="form-group app-label">
+                                        <label class="text-muted">毕业院校<span class="text-danger">*</span></label>
+                                        <input id="school2" name="school" type="text" class="form-control resume" placeholder="School :">
+                                    </div>
+                                </div>       
+                                
+                                <div class="col-md-3">
+                                    <div class="form-group app-label">
+                                        <label class="text-muted">专业<span class="text-danger">*</span></label>
+                                        <input id="specialty2" name="specialty" type="text" class="form-control resume" placeholder="Specialty :">
+                                    </div>
+                                </div> 
+
+                                <div class="col-md-2">
+                                    <div class="form-group app-label">
+                                        <label class="text-muted">学历<span class="text-danger">*</span></label>
+                                        <div class="form-button">
+                                            <!-- <select class="nice-select rounded" name="degree" id="degree2">
+                                                <option data-display="Education">学历</option>
+                                                <option value="1">初中及以下</option>
+                                                <option value="2">中专/中技</option>
+                                                <option value="3">高中</option>
+                                                <option value="4">大专</option>
+                                                <option value="5">本科</option>
+                                                <option value="6">硕士</option>
+                                                <option value="7">博士</option>
+                                            </select> -->
+                                            <div class="registration-form-box">
+                                                <select id="degree2">
+                                                    <option value="">Education...</option>
+                                                    <option value="1">初中及以下</option>
+                                                    <option value="2">中专/中技</option>
+                                                    <option value="3">高中</option>
+                                                    <option value="4">大专</option>
+                                                    <option value="5">本科</option>
+                                                    <option value="6">硕士</option>
+                                                    <option value="7">博士</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> 
+                                
+                                <div class="col-lg-4">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group app-label">
+                                                <label class="text-muted">开始日期<span class="text-danger">*</span></label>
+                                                <input id="education-date-from2" name="dateFrom" type="date" class="form-control resume" placeholder="01-Jan-2018">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group app-label">
+                                                <label class="text-muted">截止日期<span class="text-danger">*</span></label>
+                                                <input id="education-date-to2" name="dateTo" type="date" class="form-control resume" placeholder="31-March-2019">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="form-group app-label">
+                                        <label>主要事迹<span class="text-danger">*</span> :</label>
+                                        <textarea id="education-remark2" name="remark" rows="2" class="form-control resume" placeholder="Remark :"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
 
             <div class="row">
                 <div class="col-12 mt-5">
-                    <h5 class="text-dark">Work Experience :</h5>
+                    <h5 class="text-dark">工作经历 :</h5>
                 </div>
 
                 <div class="col-12 mt-3">
                     <div class="custom-form p-4 border rounded">
-                        <form>
+                        <form id="work-experience">
                             <div class="row">
-                                <div class="col-md-6">
+                                <input id="work-experience-id" type="hidden" value=""/>
+                                <div class="col-md-3">
                                     <div class="form-group app-label">
-                                        <label class="text-muted">Company Name</label>
-                                        <input id="company-name" type="text" class="form-control resume" placeholder="">
+                                        <label class="text-muted">公司名称<span class="text-danger">*</span></label>
+                                        <input id="companyName" name="companyName" type="text" class="form-control resume" placeholder="CompanyName :">
                                     </div>
                                 </div>
 
-                                <div class="col-md-6">
+                                <div class="col-md-3">
                                     <div class="form-group app-label">
-                                        <label class="text-muted">Job Position</label>
-                                        <input id="job-position" type="text" class="form-control resume" placeholder="">
+                                        <label class="text-muted">职位名称<span class="text-danger">*</span></label>
+                                        <input id="jobName" name="jobName" type="text" class="form-control resume" placeholder="JobName :">
                                     </div>
                                 </div>
 
-                                <div class="col-lg-6">
+                                <div class="col-md-2">
                                     <div class="form-group app-label">
-                                        <label class="text-muted">Location</label>
-                                        <div class="form-button">
-                                            <select class="nice-select rounded">
-                                                <option data-display="Search">Search</option>
-                                                <option value="1">New York</option>
-                                                <option value="2">Los Angeles</option>
-                                                <option value="3">Chicago</option>
-                                                <option value="4">Houston</option>
-                                                <option value="5">Indiana</option>
-                                            </select>
-                                        </div>
+                                        <label class="text-muted">所在城市<span class="text-danger">*</span></label>
+                                        <input id="city" name="city" type="text" class="form-control resume" placeholder="City :">
                                     </div>
                                 </div>
 
-                                <div class="col-lg-6">
+                                <div class="col-lg-4">
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group app-label">
-                                                <label class="text-muted">Date From</label>
-                                                <input id="date-from" type="text" class="form-control resume" placeholder="01-Jan-2018">
+                                                <label class="text-muted">任职日期<span class="text-danger">*</span></label>
+                                                <input id="work-date-from" name="dateFrom" type="date" class="form-control resume" placeholder="01-Jan-2018">
                                             </div>
                                         </div>
 
                                         <div class="col-md-6">
                                             <div class="form-group app-label">
-                                                <label class="text-muted">Date To</label>
-                                                <input id="date-to" type="text" class="form-control resume" placeholder="31-March-2019">
+                                                <label class="text-muted">离职日期<span class="text-danger">*</span></label>
+                                                <input id="work-date-to" name="dateTo" type="date" class="form-control resume" placeholder="31-March-2019">
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div>                      
 
                                 <div class="col-lg-12">
                                     <div class="form-group app-label">
-                                        <label>Additional Information :</label>
-                                        <textarea id="addition-information-1" rows="4" class="form-control resume" placeholder=""></textarea>
+                                        <label>负责内容<span class="text-danger">*</span> :</label>
+                                        <textarea id="work-remark" name="remark" rows="3" class="form-control resume" placeholder="Remark :"></textarea>
                                     </div>
                                 </div>
                             </div>
                         </form>
                     </div>
                 </div>
-            </div>
+
+                <div class="col-12 mt-3">
+                    <div class="custom-form p-4 border rounded">
+                        <form id="work-experience">
+                            <div class="row">
+                                <input id="work-experience-id1" type="hidden" value=""/>
+                                <div class="col-md-3">
+                                    <div class="form-group app-label">
+                                        <label class="text-muted">公司名称<span class="text-danger">*</span></label>
+                                        <input id="companyName1" name="companyName" type="text" class="form-control resume" placeholder="CompanyName :">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group app-label">
+                                        <label class="text-muted">职位名称<span class="text-danger">*</span></label>
+                                        <input id="jobName1" name="jobName" type="text" class="form-control resume" placeholder="JobName :">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <div class="form-group app-label">
+                                        <label class="text-muted">所在城市<span class="text-danger">*</span></label>
+                                        <input id="city1" name="city" type="text" class="form-control resume" placeholder="City :">
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group app-label">
+                                                <label class="text-muted">任职日期<span class="text-danger">*</span></label>
+                                                <input id="work-date-from1" name="dateFrom" type="date" class="form-control resume" placeholder="01-Jan-2018">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group app-label">
+                                                <label class="text-muted">离职日期<span class="text-danger">*</span></label>
+                                                <input id="work-date-to1" name="dateTo" type="date" class="form-control resume" placeholder="31-March-2019">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>                      
+
+                                <div class="col-lg-12">
+                                    <div class="form-group app-label">
+                                        <label>负责内容<span class="text-danger">*</span> :</label>
+                                        <textarea id="work-remark1" name="remark" rows="3" class="form-control resume" placeholder="Remark :"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="col-12 mt-3">
+                    <div class="custom-form p-4 border rounded">
+                        <form id="work-experience">
+                            <div class="row">
+                                <input id="work-experience-id2" type="hidden" value=""/>
+                                <div class="col-md-3">
+                                    <div class="form-group app-label">
+                                        <label class="text-muted">公司名称<span class="text-danger">*</span></label>
+                                        <input id="companyName2" name="companyName" type="text" class="form-control resume" placeholder="CompanyName :">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group app-label">
+                                        <label class="text-muted">职位名称<span class="text-danger">*</span></label>
+                                        <input id="jobName2" name="jobName" type="text" class="form-control resume" placeholder="JobName :">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <div class="form-group app-label">
+                                        <label class="text-muted">所在城市<span class="text-danger">*</span></label>
+                                        <input id="city2" name="city" type="text" class="form-control resume" placeholder="City :">
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group app-label">
+                                                <label class="text-muted">任职日期<span class="text-danger">*</span></label>
+                                                <input id="work-date-from2" name="dateFrom" type="date" class="form-control resume" placeholder="01-Jan-2018">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group app-label">
+                                                <label class="text-muted">离职日期<span class="text-danger">*</span></label>
+                                                <input id="work-date-to2" name="dateTo" type="date" class="form-control resume" placeholder="31-March-2019">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>                      
+
+                                <div class="col-lg-12">
+                                    <div class="form-group app-label">
+                                        <label>负责内容<span class="text-danger">*</span> :</label>
+                                        <textarea id="work-remark2" name="remark" rows="3" class="form-control resume" placeholder="Remark :"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="col-12 mt-3">
+                    <div class="custom-form p-4 border rounded">
+                        <form id="work-experience">
+                            <div class="row">
+                                <input id="work-experience-id3" type="hidden" value=""/>
+                                <div class="col-md-3">
+                                    <div class="form-group app-label">
+                                        <label class="text-muted">公司名称<span class="text-danger">*</span></label>
+                                        <input id="companyName3" name="companyName" type="text" class="form-control resume" placeholder="CompanyName :">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group app-label">
+                                        <label class="text-muted">职位名称<span class="text-danger">*</span></label>
+                                        <input id="jobName3" name="jobName" type="text" class="form-control resume" placeholder="JobName :">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <div class="form-group app-label">
+                                        <label class="text-muted">所在城市<span class="text-danger">*</span></label>
+                                        <input id="city3" name="city" type="text" class="form-control resume" placeholder="City :">
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group app-label">
+                                                <label class="text-muted">任职日期<span class="text-danger">*</span></label>
+                                                <input id="work-date-from3" name="dateFrom" type="date" class="form-control resume" placeholder="01-Jan-2018">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group app-label">
+                                                <label class="text-muted">离职日期<span class="text-danger">*</span></label>
+                                                <input id="work-date-to3" name="dateTo" type="date" class="form-control resume" placeholder="31-March-2019">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>                      
+
+                                <div class="col-lg-12">
+                                    <div class="form-group app-label">
+                                        <label>负责内容<span class="text-danger">*</span> :</label>
+                                        <textarea id="work-remark3" name="remark" rows="3" class="form-control resume" placeholder="Remark :"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             
 
             <div class="row">
-                <!-- <div class="col-12 mt-5">
-                    <h5 class="text-dark">Skills :</h5>
-                </div>
-                
-                <div class="col-12 mt-3">
-                    <div class="custom-form p-4 border rounded">
-                        <form>
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="form-group app-label">
-                                        <label class="text-muted">Skills</label>
-                                        <input id="skills" type="text" class="form-control resume" placeholder="HTML, CSS, PHP, javascript, ...">
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-12">
-                                    <div class="form-group app-label">
-                                        <label class="text-muted">Skill proficiency</label>
-                                        <input id="skill_proficiency" type="text" class="form-control resume" placeholder="75%">
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div> -->
-                
                 <div class="col-12 mt-4">
-                    <input type="submit" id="submit" name="send" class="submitBnt btn btn-primary" value="Submit Resume">
+                    <!-- <input type="submit" id="submit" name="send" class="submitBnt btn btn-primary" value="提交"> -->
+                    <a href="javascript:saveResume()" class="btn btn-primary">提交</a>
                 </div>
             </div>
         </div>
@@ -416,15 +756,151 @@
 
     <script src="js/notiflix-2.1.2.min.js"></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
+
     <script type="text/javascript">
         $(function() {
             loadTopNav();
             loadFootNav();
             setName();
-            $('#date-of-birth').datetimepicker({
-                locale: 'zh-cn',viewMode: 'days',format: 'YYYY/MM/DD'
+            var data = loadResume();
+            
+            var $select = $("#select-country").selectize({
+                create: true,
+                // sortField: {
+                //     field: 'text',
+                //     direction: 'asc'
+                // },
+                dropdownParent: 'body'
             });
+            var control = $select[0].selectize;
+            control.addItem(data.data.resume.gender);
+            
         });
+
+        function loadResume() {
+            var user = JSON.parse(localStorage.getItem("userInfo"));
+            var data = getResume(user.userId);
+            setResume(data);
+            setResumeEducation(data);
+            setResumeWorkExperience(data);
+            
+            return data;
+        }
+
+        
+
+        function saveResume() {
+            var user = JSON.parse(localStorage.getItem("userInfo"));
+            var resume = {
+            "resume": {
+                "age": getValue("age"),
+                "icon":getValue("icon"),
+                "cityIntension": getValue("cityIntension"),
+                "education": getSelectText("resume-education"),
+                "email": getValue("email"),
+                "gender": getSelectText("select-country"),
+                "id": getValue("resume-id"),
+                "jobIntension": getValue("jobIntension"),
+                "maritalStatus": getSelectText("select-category"),
+                "name": getValue("name"),
+                "phone": getValue("phone"),
+                "selfIntroduction": getValue("selfIntroduction"),
+                "skill": getValue("skill"),
+                "userId": user.userId,
+                "workExperience": getSelectText("resume-work")
+            },
+            "resumeEducationList": [
+                {
+                    "degree": getSelectText("degree"),
+                    "id": getValue("education-id"),
+                    "remark": getValue("education-remark"),
+                    "school": getValue("school"),
+                    "specialty": getValue("specialty"),
+                    "dateFrom": getValue("education-date-from"),
+                    "dateTo": getValue("education-date-to"),
+                    "userId": user.userId
+                },
+                {
+                    "degree": getSelectText("degree1"),
+                    "id": getValue("education-id1"),
+                    "remark": getValue("education-remark1"),
+                    "school": getValue("school1"),
+                    "specialty": getValue("specialty1"),
+                    "dateFrom": getValue("education-date-from1"),
+                    "dateTo": getValue("education-date-to1"),
+                    "userId": user.userId
+                },
+                {
+                    "degree": getSelectText("degree2"),
+                    "id": getValue("education-id2"),
+                    "remark": getValue("education-remark2"),
+                    "school": getValue("school2"),
+                    "specialty": getValue("specialty2"),
+                    "dateFrom": getValue("education-date-from2"),
+                    "dateTo": getValue("education-date-to2"),
+                    "userId": user.userId
+                }
+            ],
+            "resumeWorkExperienceList": [
+                {
+                    "companyName": getValue("companyName"),
+                    "dateFrom": getValue("work-date-from"),
+                    "dateTo": getValue("work-date-to"),
+                    "id": getValue("work-experience-id"),
+                    "jobName": getValue("jobName"),
+                    "city": getValue("city"),
+                    "remark": getValue("work-remark"),
+                    "userId": user.userId
+                },
+                {
+                    "companyName": getValue("companyName1"),
+                    "dateFrom": getValue("work-date-from1"),
+                    "dateTo": getValue("work-date-to1"),
+                    "id": getValue("work-experience-id1"),
+                    "jobName": getValue("jobName1"),
+                    "city": getValue("city1"),
+                    "remark": getValue("work-remark1"),
+                    "userId": user.userId
+                },
+                {
+                    "companyName": getValue("companyName2"),
+                    "dateFrom": getValue("work-date-from2"),
+                    "dateTo": getValue("work-date-to2"),
+                    "id": getValue("work-experience-id2"),
+                    "jobName": getValue("jobName2"),
+                    "city": getValue("city2"),
+                    "remark": getValue("work-remark2"),
+                    "userId": user.userId
+                },
+                {
+                    "companyName": getValue("companyName3"),
+                    "dateFrom": getValue("work-date-from3"),
+                    "dateTo": getValue("work-date-to3"),
+                    "id": getValue("work-experience-id3"),
+                    "jobName": getValue("jobName3"),
+                    "city": getValue("city3"),
+                    "remark": getValue("work-remark3"),
+                    "userId": user.userId
+                }
+            ]
+            };
+            $.ajax({
+                type:"POST",
+                async:true,
+                url:defaultUrl + "resume/saveResume",
+                dataType:"json",
+                contentType:"application/json;charset=utf-8",
+                data:JSON.stringify(resume),
+                success:function(data) {
+                    if (data.code == 200) {
+                        getSuccessMsg(data.message);
+                    } else {
+                        getFailMsg(data.data);
+                    }
+                }
+            })
+        }
     </script>
 
 </body>

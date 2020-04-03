@@ -1,6 +1,6 @@
-//var defaultUrl="http://localhost:8888/";
+var defaultUrl="http://localhost:8888/";
 
-var defaultUrl="http://120.24.48.43:8888/";
+//var defaultUrl="http://120.24.48.43:8888/";
 
 function getSuccessMsg(msg) {
     $.message({
@@ -215,8 +215,8 @@ function upload(){
         headers:{"token":token},
         success : function(data) {
             if (data.code == 200) {
-                $("#head-image").attr("src", "images/head/" + data.data);
-                $("#icon").val("images/head/" + data.data); 
+                $("#head-image").attr("src", data.data);
+                $("#icon").val(data.data); 
                 getSuccessMsg("上传成功");
             } else {
                 getFailMsg(data.message);
@@ -292,23 +292,36 @@ function generatePaginaionNav(pagination) {
     max = total % pageSize == 0 ? parseInt(total / pageSize) : parseInt(total / pageSize) + 1;
     var totalPage = pagination.currentPage + 3 > max ? max : currentPage + 3;
     item = item + '<li class="page-item">'+
-                        '<a class="page-link" href="javascript:getJobInfoByPage('+ (currentPage - 1) +',' + max + ')" tabindex="-1" aria-disabled="true">'+
+                        '<a class="page-link" href="javascript:getInfoByPage('+ (currentPage - 1) +',' + max + ')" tabindex="-1" aria-disabled="true">'+
                             '<i class="mdi mdi-chevron-double-left f-15"></i>'+
                         '</a>'+
                     '</li>';
-    item = item + '<li class="page-item active"><a class="page-link" href="javascript:getJobInfoByPage('+ currentPage +',' + max + ')">'+currentPage+'</a></li>';
+    item = item + '<li class="page-item active"><a class="page-link" href="javascript:getInfoByPage('+ currentPage +',' + max + ')">'+currentPage+'</a></li>';
     for (var i = currentPage + 1; i <= totalPage; i++) {
-        item = item + '<li class="page-item"><a class="page-link" href="javascript:getJobInfoByPage('+ i +',' + max + ')">' + i + '</a></li>';
+        item = item + '<li class="page-item"><a class="page-link" href="javascript:getInfoByPage('+ i +',' + max + ')">' + i + '</a></li>';
     }
     item = item + '<li class="page-item">'+
-                        '<a class="page-link" href="javascript:getJobInfoByPage('+ (currentPage + 1) +',' + max + ')" tabindex="-1" aria-disabled="true">'+
+                        '<a class="page-link" href="javascript:getInfoByPage('+ (currentPage + 1) +',' + max + ')" tabindex="-1" aria-disabled="true">'+
                             '<i class="mdi mdi-chevron-double-right f-15"></i>'+
                         '</a>'+
                     '</li>';
     $("#pagination").append(item);
 }
 
-function getJobInfoByPage(pageNum,max) {
+function getState(state) {
+    state = parseInt(state);
+    if (state == 0) {
+        return "待处理";
+    } else if (state == 1) {
+        return "初筛通过";
+    } else if (state == 2) {
+        return "初筛不通过";
+    } else {
+        return "";
+    }
+}
+
+function getInfoByPage(pageNum,max) {
     if (pageNum <= 0) {
         Notiflix.Report.Info(
             '不能再往前了!!!',
@@ -327,4 +340,215 @@ function getJobInfoByPage(pageNum,max) {
     }
     $("#pageNum").val(pageNum);
     listJob();
+}
+
+function listAttach() {
+    var attachList = null;
+    var token = localStorage.getItem("token");
+    token = token.substring(1, token.length - 1);
+    var user = JSON.parse(localStorage.getItem("userInfo"));
+    $.ajax({
+        type:"GET",
+        async:false,              
+        url:defaultUrl + "attach/listResumeAttach",
+        headers:{"token":token},
+        data:{"userId":user.userId},
+        dataType:"json",
+        crossDomain: true,
+        success:function(data) {
+            if (data.code == 200) {
+                attachList = data;
+                //setAttachList(data)
+                //getSuccessMsg("发布成功");
+            } else {
+                //getInfoMsg(data.data);
+            }
+        },
+        //error:error(),
+    })
+    return attachList;
+}
+
+function viewProfile(resumeId, attachId) {
+    var url = null;
+    if (resumeId != null) {
+        url = "candidates-profile.html?userId=" + resumeId;
+    } else {
+        var data = getResumeAttach(attachId);
+        url = data.data.url;
+    }
+    window.open(url);
+}
+
+function updateDeliveryState(recordId, state) {
+    Notiflix.Confirm.Show(
+        '确认',
+        '您确定要处理吗？',
+        '确定',
+        '取消',
+        function(){ 
+            var token = localStorage.getItem("token");
+            token = token.substring(1, token.length - 1);
+            var user = JSON.parse(localStorage.getItem("userInfo"));
+            $.ajax({
+                type:"POST",
+                async:true,
+                url:defaultUrl + "delivery/updateDeliveryState",
+                headers:{"token":token},
+                dataType:"json",
+                data:{
+                    "recordId":recordId,
+                    "userId":user.userId,
+                    "state":state
+                },
+                success:function(data) {
+                    if (data.code == 200) {
+                        getSuccessMsg("处理成功");
+                    }
+                    location.reload();
+                }
+            })
+        },function(){ 
+            // No button callbackalert('If you say so...');
+        }
+    );
+    
+}
+
+function getResumeAttach(attachId) {
+    var token = localStorage.getItem("token");
+    token = token.substring(1, token.length - 1);
+    var user = JSON.parse(localStorage.getItem("userInfo"));
+    var attach = null;
+    $.ajax({
+        type:"GET",
+        async:false,
+        url:defaultUrl + "attach/getResumeAttach",
+        headers:{"token":token},
+        dataType:"json",
+        data:{
+            "attachId":attachId
+        },
+        success:function(data) {
+            attach = data;
+        }
+    })
+    return attach;
+}
+
+function getResume(userId) {
+    var token = localStorage.getItem("token");
+    token = token.substring(1, token.length - 1);
+    var tmp = null;
+    $.ajax({
+        type:"GET",
+        async:false,              
+        url:defaultUrl + "resume/getResume",
+        headers:{"token":token},
+        data:{"userId":userId},
+        dataType:"json",
+        crossDomain: true,
+        success:function(data) {
+            if (data.code == 200) {
+                console.log(data);
+                tmp = data;
+                //getSuccessMsg("发布成功");
+            } else {
+                getInfoMsg(data.data);
+            }
+        },
+        //error:error(),
+    })
+    return tmp;
+}
+
+function setResumeEducation(data) {
+    var educationList = data.data.resumeEducationList;
+    console.log(educationList);
+    for (var i = 0; i < educationList.length; i++) {
+        if (i >= 1) {
+            $("#degree" + i).val(educationList[i].degree);
+            $("#education-id" + i).val(educationList[i].id);
+            $("#school" + i).val(educationList[i].school);
+            $("#specialty" + i).val(educationList[i].specialty);
+            $("#education-date-from" + i).val(educationList[i].dateFrom);
+            $("#education-date-to" + i).val(educationList[i].dateTo);
+        } else {
+            $("#degree").val(educationList[i].degree);
+            $("#education-id").val(educationList[i].id);
+            $("#school").val(educationList[i].school);
+            $("#specialty").val(educationList[i].specialty);
+            $("#education-date-from").val(educationList[i].dateFrom);
+            $("#education-date-to").val(educationList[i].dateTo);
+        }
+        
+    }
+}
+
+function setResumeWorkExperience(data) {
+    var workExperienceList = data.data.resumeWorkExperienceList;
+    for (var i = 0; i < workExperienceList.length; i++) {
+        if (i >= 1) {
+            $("#companyName" + i).val(workExperienceList[i].companyName);
+            $("#work-date-from" + i).val(workExperienceList[i].dateFrom);
+            $("#work-date-to" + i).val(workExperienceList[i].dateTo);
+            $("#work-experience-id" + i).val(workExperienceList[i].id);
+            $("#jobName" + i).val(workExperienceList[i].jobName);
+            $("#city" + i).val(workExperienceList[i].city);
+            $("#work-remark" + i).val(workExperienceList[i].remark);
+        } else {
+            $("#companyName").val(workExperienceList[i].companyName);
+            $("#work-date-from").val(workExperienceList[i].dateFrom);
+            $("#work-date-to").val(workExperienceList[i].dateTo);
+            $("#work-experience-id").val(workExperienceList[i].id);
+            $("#jobName").val(workExperienceList[i].jobName);
+            $("#city").val(workExperienceList[i].city);
+            $("#work-remark").val(workExperienceList[i].remark);
+        }
+        
+    }
+}
+
+function setDefaultSelect(id, value) {
+    console.log(value);
+    var $select = $(id).selectize({
+        create: true,
+        // sortField: {
+        //     field: 'text',
+        //     direction: 'asc'
+        // },
+        dropdownParent: 'body'
+    });
+    var control = $select[0].selectize;
+    control.addItem(value);
+}
+
+function setResume(data) {
+    var resume = data.data.resume;
+    $("#age").val(resume.age);
+    $("#cityIntension").val(resume.cityIntension);
+    
+    // if (resume.education != null) {
+    //     setDefaultSelect("#resume-education", resume.education);
+    // }
+    // if (resume.workExperience != null) {
+    //     setDefaultSelect("#resume-work", resume.workExperience);
+    // }
+    // setDefaultSelect("#select-category", resume.maritalStatus);
+    // setDefaultSelect("#select-country", resume.gender);
+    $("#head-image").attr("src", resume.icon);
+    $("#email").val(resume.email);
+    //$("#gender").val(resume.gender);
+    $("#icon").val(resume.icon);
+    $("#jobIntension").val(resume.jobIntension);
+    //$("#maritalStatus").val(resume.maritalStatus);
+    $("#name").val(resume.name);
+    $("#phone").val(resume.phone);
+    $("#resumeId").val(resume.resumeId);
+    $("#selfIntroduction").val(resume.selfIntroduction);
+    $("#skill").val(resume.skill);
+    
+    $("#resume-id").val(resume.id);
+
+    // $("#gender").find("option[text='女']").attr("class","option selected");
 }

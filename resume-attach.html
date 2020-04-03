@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Jobya - 上传简历</title>
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta name="author" content="Themesdesign" />
+
+    <link rel="shortcut icon" href="images/favicon.ico">
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+
+    <!--Material Icon -->
+    <link rel="stylesheet" type="text/css" href="css/materialdesignicons.min.css" />
+
+    <link rel="stylesheet" type="text/css" href="css/fontawesome.css" />
+
+    <!-- selectize css -->
+    <link rel="stylesheet" type="text/css" href="css/selectize.css" />
+
+    <link rel="stylesheet" type="text/css" href="css/nice-select.css" />
+
+    <!-- Custom  Css -->
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+
+    <link rel="stylesheet" type="text/css" href="css/notiflix-2.1.2.min.css"/>
+
+    <script src="js/ckeditor/ckeditor.js"></script>
+
+
+</head>
+
+<body>
+    <!-- Loader -->
+    <div id="preloader">
+        <div id="status">
+            <div class="spinner">
+                <div class="double-bounce1"></div>
+                <div class="double-bounce2"></div>
+            </div>
+        </div>
+    </div>
+    <!-- Loader -->
+
+    <!-- Navigation Bar-->
+    <header id="topnav" class="defaultscroll scroll-active">
+        
+    </header><!--end header-->
+    <!-- Navbar End -->
+    
+    <!-- Start home -->
+    <section class="bg-half page-next-level"> 
+        <div class="bg-overlay"></div>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div class="text-center text-white">
+                        <h4 class="text-uppercase title mb-4">附件简历</h4>
+                        <ul class="page-next d-inline-block mb-0">
+                            <li><a href="index.html" class="text-uppercase font-weight-bold">首页</a></li>
+                            <li>
+                                <span class="text-uppercase text-white font-weight-bold">附件简历</span> 
+                            </li> 
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- end home -->
+
+    <!-- POST A JOB START -->
+    <section class="section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="rounded shadow bg-white p-4">
+                        <div class="custom-form">
+                            <div id="message3"></div>
+                            <form method="post" action="" name="contact-form" id="ff">
+                                <h4 class="text-dark mb-3">上传一个附件简历 :</h4>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <ul class="list-inline mb-0">
+                                            <li class="list-inline-item">
+                                                <div class="input-group mt-2 mb-2">
+                                                    <div class="custom-file">
+                                                        <input onchange="uploadAttach()" name="file" type="file"  id="file" class="custom-file-input" aria-describedby="inputGroupFileAddon01"/>
+                                                        <!-- <input type="file" id="file" onchange="uploadAttach()" name="file"> -->
+                                                        <label class="custom-file-label rounded"><i class="mdi mdi-cloud-upload mr-1"></i> 上传</label>
+                                                    </div>
+                                                </div>
+                                            </li>
+
+                                            <!-- <li class="list-inline-item">
+                                                <h6 class="text-muted mb-0">PDF格式</h6>
+                                            </li> -->
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12 mt-2">
+                                        <br><br>
+                                        <h4 class="text-dark mb-3">已上传的简历 :</h4>
+                                    </div>
+                                </div>
+                                
+                                <div id="attach-list">
+                                    <div class="row">
+                                        <div class="col-lg-12 mt-2">
+                                            <label class="text-dark mt-4">简历名称 :</label>
+                                            <a href="javascript:open()" class="btn btn-primary">查看</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- POST A JOB END -->
+
+    <hr>
+    <footer class="footer footer-bar">
+        
+    </footer><!--end footer-->
+    <!-- Footer End -->
+
+    <!-- Back to top -->
+    <a href="#" class="back-to-top rounded text-center" id="back-to-top"> 
+        <i class="mdi mdi-chevron-up d-block"> </i> 
+    </a>
+    <!-- Back to top -->
+
+    <!-- javascript -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/jquery.easing.min.js"></script>
+    <script src="js/plugins.js"></script>
+
+    <!-- selectize js -->
+    <script src="js/selectize.min.js"></script>
+
+    <script src="js/jquery.nice-select.min.js"></script>
+
+    <script src="js/app.js"></script>
+
+    <script src="js/message.js"></script>
+
+    <script src="js/common.js"></script>
+
+    <script src="js/jquery.params.js"></script>
+
+    <script src="js/notiflix-2.1.2.min.js"></script>
+
+    
+
+
+    <script type="text/javascript">
+        $(function() {
+            loadTopNav();
+            loadFootNav();
+            setName();
+            
+            var user = JSON.parse(localStorage.getItem("userInfo"));
+            if (user == null) {
+                jump();
+            }
+            setAttachList();
+        })
+
+        function setAttachList() {
+            $("#attach-list").empty();
+            var data = listAttach();
+            var attachList = data.data;
+            for (var i = 0; i < attachList.length; i++) {
+                $("#attach-list").append('<div class="row">'+
+                    '<div class="col-lg-12 mt-2">'+
+                        '<label class="text-dark mt-4">简历名称 :'+ attachList[i].fileName +'</label>&nbsp;&nbsp;&nbsp;&nbsp;'+
+                        '<a href="'+attachList[i].url+'" class="btn btn-primary" target="_blank">查看</a>&nbsp;&nbsp;&nbsp;&nbsp;'+
+                        '<a href="javascript:removeResumeAttach('+attachList[i].attachId+')" class="btn btn-primary">删除</a>'+
+                        '</div>'+
+                        '</div>');
+            }
+        }
+
+        function removeResumeAttach(attachId) {
+            Notiflix.Confirm.Show(
+                '确认',
+                '您确定要删除吗？',
+                '确定',
+                '取消',
+                function(){ 
+                    var token = localStorage.getItem("token");
+                    token = token.substring(1, token.length - 1);
+                    var user = JSON.parse(localStorage.getItem("userInfo"));
+                    $.ajax({
+                        type:"post",
+                        async:true,              
+                        url:defaultUrl + "attach/removeResumeAttach",
+                        headers:{"token":token},
+                        data:{"attachId":attachId,"userId":user.userId},
+                        dataType:"json",
+                        crossDomain: true,
+                        success:function(data) {
+                            if (data.code == 200) {
+                                
+                                getSuccessMsg("删除成功");
+                            } else {
+                                //getInfoMsg(data.data);
+                            }
+                        },
+                        //error:error(),
+                    })
+                    Notiflix.Report.Success(
+                        '删除成功',
+                        ' ',
+                        '关闭',
+                        function () {
+                            location.reload();
+                        }
+                    );
+                },function(){ 
+                    // No button callbackalert('If you say so...');
+                }
+            );
+            
+        }
+
+        
+
+        function saveAttach(data) {
+            var token = localStorage.getItem("token");
+            token = token.substring(1, token.length - 1);
+            var user = JSON.parse(localStorage.getItem("userInfo"));
+            var dto = {
+                "userId":user.userId,
+                "url":data.data
+            }
+            $.ajax({
+                type:"POST",
+                async:true,              
+                url:defaultUrl + "attach/saveResumeAttach",
+                headers:{"token":token},
+                data:JSON.stringify(dto),
+                contentType:"application/json;charset=utf-8",
+                dataType:"json",
+                crossDomain: true,
+                success:function(data) {
+                    if (data.code == 200) {
+                        Notiflix.Report.Success(
+                            '上传成功',
+                            ' ',
+                            '关闭',
+                            function () {
+                                location.reload();
+                            }
+                        );  
+                    } else {
+                        getInfoMsg(data.data);
+                    }
+                },
+                //error:error(),
+            })
+        }
+
+        function uploadAttach() {
+            var token = localStorage.getItem("token");
+            token = token.substring(1, token.length - 1);
+            $.ajax({
+                url: defaultUrl + "base/upload",
+                type: 'POST',
+                cache: false,
+                data: new FormData($('#ff')[0]),
+                processData: false,
+                contentType: false,
+                dataType:"json",
+                headers:{"token":token},
+                success : function(data) {
+                    if (data.code == 200) {                    
+                        saveAttach(data);
+                                             
+                    } else {
+                        getFailMsg(data.data);
+                    }
+                },error :function(data){
+                    getFailMsg(data.message);
+                }
+            });
+        }
+    </script>
+</body>
+</html>

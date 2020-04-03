@@ -783,7 +783,7 @@ p {
 }
 
 .bg-overlay {
-  background-color: rgba(40, 44, 50, 0.7);
+  background-color: rgba(124, 142, 160, 0.7);
   position: absolute;
   top: 0;
   right: 0;
@@ -1625,7 +1625,7 @@ p {
 
 .bg-half {
   padding: 280px 0px 180px 0px;
-  background-image: url("../images/bg-page-header.jpg");
+  background-image: url("../images/loginbg.jpg");
   background-size: cover;
   position: relative;
   background-position: center center;

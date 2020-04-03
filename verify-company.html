@@ -111,9 +111,7 @@
         $(function(){
             var user = JSON.parse(localStorage.getItem("userInfo"));
             if (user == null) {
-                getInfoMsg("请先登录");
-                window.open("login.html");
-                return;
+                jump();
             }
         })
 

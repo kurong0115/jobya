@@ -21,10 +21,28 @@
     // Selectize
     $('#select-category, #select-lang,#select-country').selectize({
         create: true,
-        sortField: {
-            field: 'text',
-            direction: 'asc'
-        },
+        // sortField: {
+        //     field: 'text',
+        //     direction: 'asc'
+        // },
+        dropdownParent: 'body'
+    });
+
+    $('#resume-education, #resume-work').selectize({
+        create: true,
+        // sortField: {
+        //     field: 'text',
+        //     direction: 'asc'
+        // },
+        dropdownParent: 'body'
+    });
+
+    $('#degree, #degree1,#degree2').selectize({
+        create: true,
+        // sortField: {
+        //     field: 'text',
+        //     direction: 'asc'
+        // },
         dropdownParent: 'body'
     });
 

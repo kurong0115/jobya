@@ -250,48 +250,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- collapse one end -->
-                            <!-- <div class="card rounded mt-4">
-                                <a data-toggle="collapse" href="#collapsetwo" class="job-list" aria-expanded="true" aria-controls="collapsetwo">
-                                    <div class="card-header" id="headingtwo">
-                                        <h6 class="mb-0 text-dark f-18">Categories</h6>
-                                    </div>
-                                </a>
-                                <div id="collapsetwo" class="collapse show" aria-labelledby="headingtwo">
-                                    <div class="card-body p-0">
-                                        <div class="custom-control custom-radio">
-                                            <input type="radio" id="customRadio7" name="customRadio1" class="custom-control-input">
-                                            <label class="custom-control-label ml-1 text-muted" for="customRadio7">Digital & Creative</label>
-                                        </div>
-
-                                        <div class="custom-control custom-radio">
-                                            <input type="radio" id="customRadio8" name="customRadio1" class="custom-control-input">
-                                            <label class="custom-control-label ml-1 text-muted" for="customRadio8">Accountancy</label>
-                                        </div>
-
-                                        <div class="custom-control custom-radio">
-                                            <input type="radio" id="customRadio9" name="customRadio1" class="custom-control-input">
-                                            <label class="custom-control-label ml-1 text-muted" for="customRadio9">Banking</label>
-                                        </div>
-
-                                        <div class="custom-control custom-radio">
-                                            <input type="radio" id="customRadio10" name="customRadio1" class="custom-control-input">
-                                            <label class="custom-control-label ml-1 text-muted" for="customRadio10">IT Contractor</label>
-                                        </div>
-
-                                        <div class="custom-control custom-radio">
-                                            <input type="radio" id="customRadio11" name="customRadio1" class="custom-control-input">
-                                            <label class="custom-control-label ml-1 text-muted" for="customRadio11">Graduate</label>
-                                        </div>
-
-                                        <div class="custom-control custom-radio">
-                                            <input type="radio" id="customRadio12" name="customRadio1" class="custom-control-input">
-                                            <label class="custom-control-label ml-1 text-muted" for="customRadio12">Estate Agency</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> -->
-                            <!-- collapse one end -->
                             <div class="card rounded mt-4">
                                 <a data-toggle="collapse" href="#collapsefive" class="job-list collapsed" aria-expanded="false" aria-controls="collapsefive">
                                     <div class="card-header" id="headingfive">
@@ -431,7 +389,33 @@
                                 </div>
                             </div>
                             <!-- collapse one end -->
-
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" id="modal-btn" style="display: none;">
+                                Launch demo modal
+                            </button>
+                            
+                            <!-- Modal -->
+                            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                    <h4 class="modal-title" id="myModalLabel">附件简历</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    
+                                    </div>
+                                    <div class="modal-body" id="attach-list">
+                                        <!-- <div class="custom-control custom-radio">
+                                            <input type="radio" id="customRadio29" name="jobType" class="custom-control-input" value="0" checked="checked">
+                                            <label class="custom-control-label ml-1 text-muted" for="customRadio29">不限</label>
+                                        </div> -->
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="sendAttachRecord()">确定</button>
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
                             
                             <!-- collapse one end -->
 
@@ -611,9 +595,76 @@
             listJob();
         }
 
-        function apply(jobNo) {
+        var attachJobId;
+        var attachReceiver;
+
+        function sendAttachRecord() {
+            var attachId = $("input:radio[name=attachId]:checked").val();
+            saveDeliveryRecord(attachJobId,attachId,attachReceiver);
+        }
+
+        function saveDeliveryRecord(jobId,attachId,receiver) {
+            var token = localStorage.getItem("token");
+            token = token.substring(1, token.length - 1);
+            var user = JSON.parse(localStorage.getItem("userInfo"));
+            var delivery = {
+                "jobId":jobId,
+                "attachId":attachId,
+                "receiver":receiver,
+                "sender":user.userId
+            }
+            $.ajax({
+                type:"post",
+                async:true,              
+                url:defaultUrl + "delivery/saveDeliveryRecord",
+                headers:{"token":token},
+                data:JSON.stringify(delivery),
+                contentType:"application/json;charset=utf-8",
+                dataType:"json",
+                crossDomain: true,
+                success:function(data) {
+                    if (data.code == 200) {
+                        getSuccessMsg("投递成功");
+                    } else {
+                        getFailMsg(data.data);
+                    }
+                },
+                //error:error(),
+            })
+        }
+
+        
+        function apply(jobNo,receiver) {
             if (getUser() == null) {
                 jump();
+            }
+            attachJobId = jobNo;
+            attachReceiver = receiver;
+            var token = localStorage.getItem("token");
+            token = token.substring(1, token.length - 1);
+            var user = JSON.parse(localStorage.getItem("userInfo"));
+            Notiflix.Confirm.Show(
+                '确认',
+                '选择一项投递方式',
+                '在线简历',
+                '附件简历',
+                function(){ 
+                    saveDeliveryRecord(jobNo,null,receiver);
+                },function(){ 
+                    
+                    var data = listAttach();
+                    var attachList = data.data;
+                    setAttachRadio(attachList)
+                    $("#modal-btn").click();
+                }
+            );
+        }
+
+        function setAttachRadio(attachList) {
+            $("#attach-list").empty();
+            for (var i = 0; i < attachList.length; i++) {
+                $("#attach-list").append('<div class="custom-control custom-radio"><input type="radio" id="customRadio29'+i+'" name="attachId" class="custom-control-input" value="'+attachList[i].attachId+'">'+
+                                            '<label class="custom-control-label ml-1 text-muted" for="customRadio29'+i+'">'+attachList[i].fileName+'</label></div>')
             }
         }
 
@@ -668,7 +719,7 @@
                                     '</div>' + 
                                     
                                     '<div class="apply-button p-3 border-top">' + 
-                                        '<a href="javascript:apply('+jobList[i].jobNo+')" class="btn btn-primary btn-sm">立即申请</a>' + 
+                                        '<a href="javascript:apply('+jobList[i].jobNo+','+jobList[i].creator+')" class="btn btn-primary btn-sm">立即申请</a>' + 
                                     '</div>' + 
                                 '</div>' + 
                             '</div>';
