@@ -236,8 +236,8 @@
                     $("#name").html(companyEntity.name);
                     $("#industry").html(companyEntity.industry);
                     $("#city").html(companyEntity.city);
-                    $("#stage").html(companyEntity.stage);
-                    $("#scale").html(companyEntity.scale);
+                    $("#stage").html(getStage(companyEntity.stage));
+                    $("#scale").html(getScale(companyEntity.scale));
                     $("#introduce").html(companyEntity.introduce);
                     $("#icon").attr("src", companyEntity.icon);
                     $("#corporator").html(companyEntity.corporator);

@@ -371,7 +371,7 @@ function listAttach() {
 
 function viewProfile(resumeId, attachId) {
     var url = null;
-    if (resumeId != null) {
+    if (attachId == null) {
         url = "candidates-profile.html?userId=" + resumeId;
     } else {
         var data = getResumeAttach(attachId);
@@ -549,6 +549,68 @@ function setResume(data) {
     $("#skill").val(resume.skill);
     
     $("#resume-id").val(resume.id);
+    $("#gender").find("option[val='1']").prop("selected",true);
+}
 
-    // $("#gender").find("option[text='女']").attr("class","option selected");
+function getScale(scale) {
+    if (scale == 1) {
+        return "0-20人";
+    } else if (scale == 2) {
+        return "20-99人";
+    } else if (scale == 3) {
+        return "100-499人";
+    } else if (scale == 4) {
+        return "500-999人";
+    } else if (scale == 5) {
+        return "1000-9999人";
+    } else if (scale == 6) {
+        return "10000人以上";
+    } else {
+        return "";
+    }
+}
+
+function getStage(stage) {
+    if (stage == 1) {
+        return "未融资";
+    } else if (stage == 2) {
+        return "天使轮";
+    } else if (stage == 3) {
+        return "A轮";
+    } else if (stage == 4) {
+        return "B轮";
+    } else if (stage == 5) {
+        return "C轮";
+    } else if (stage == 6) {
+        return "D轮";
+    } else if (stage == 7) {
+        return "已上市";
+    } else if (stage == 8) {
+        return "不需要融资";
+    } else {
+        return "";
+    }
+}
+
+function getUserInfoById(userId) {
+    var tmp = null;
+    $.ajax({
+        type:"GET",
+        async:false,
+        url:defaultUrl + "user/getUserInfoById",
+        dataType:"json",
+        data:{"userId":userId},
+        success:function(data) {
+            if (data.code == 200) {
+                tmp = data.data.userEntity;
+            }
+        }
+    })
+    return tmp;
+}
+
+function updateUserInfo(userId) {
+    var user = getUserInfoById(userId);
+    console.log(user);
+    localStorage.setItem("userInfo",JSON.stringify(user));
 }

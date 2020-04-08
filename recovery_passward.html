@@ -26,6 +26,8 @@
 
         <link rel="stylesheet" type="text/css" href="css/sweetalert.css"/>
 
+        <link rel="stylesheet" type="text/css" href="css/notiflix-2.1.2.min.css"/>
+
     </head>
 
     <body>
@@ -54,19 +56,20 @@
                             <div class="col-lg-4 col-md-6">
                                 <div class="login_page bg-white shadow rounded p-4">
                                     <div class="text-center">
-                                        <h4 class="mb-4">Recover Account</h4>  
+                                        <h4 class="mb-4">恢复账号</h4>  
                                     </div>
                                     <form class="login-form">
                                         <div class="row">
                                             <div class="col-lg-12">
-                                                <p class="text-muted">Please enter your email address. You will receive a link to create a new password via email.</p>
+                                                <p class="text-muted">请输入您的邮箱. 您将收到一个链接用于重置您的密码</p>
                                                 <div class="form-group position-relative">
-                                                    <label>Email address <span class="text-danger">*</span></label>
-                                                    <input type="email" class="form-control" placeholder="Enter Your Email Address" name="email" required="">
+                                                    <label>邮箱 <span class="text-danger">*</span></label>
+                                                    <input type="email" id="email" class="form-control" placeholder="Email" name="email" required="">
                                                 </div>
                                             </div>
                                             <div class="col-lg-12">
-                                                <button class="btn btn-primary w-100">Send</button>
+                                                <input type="button" id="submit" name="send" onclick="sendRecoveryEmail()" class="btn btn-primary w-100" value="发送">
+        
                                             </div>
                                         </div>
                                     </form>
@@ -101,5 +104,64 @@
         <script src="js/sweetalert-dev.js"></script>
 
         <script src="js/citySelect.js"></script>
+
+        <script src="js/notiflix-2.1.2.min.js"></script>
+
+        <script>
+            $(function() {
+                recoveryPassword();
+            })
+            function recoveryPassword() {
+                var email = $.query.get("email");
+                var secret = $.query.get("secret");
+                if (!(email == null || email == true || email == "" || secret == null || secret == true || secret == "")) {
+                    $.ajax({
+                        url: defaultUrl + "user/recoveryPassword",
+                        type: 'POST',
+                        dataType:"json",
+                        data:{"email":email,"secret":secret},
+                        success : function(data) {
+                            if (data.code == 200) {
+                                Notiflix.Report.Success(
+                                    '您的密码已重置为123456',
+                                    ' ',
+                                    '关闭',
+                                    function () {
+                                        window.location.href="login.html";
+                                    }
+                                );
+                                
+                            } else {
+                                getFailMsg(data.data);
+                            }
+                        },error :function(data){
+                            getFailMsg(data.data);
+                        }
+                    });
+                }
+            }
+
+            function sendRecoveryEmail() {
+                var email = getValue("email");
+                if (!checkEmail(email)) {
+                    return;
+                }
+                $.ajax({
+                    url: defaultUrl + "mail/sendRecoveryEmail",
+                    type: 'POST',
+                    dataType:"json",
+                    data:{"email":email},
+                    success : function(data) {
+                        if (data.code == 200) {
+                            getSuccessMsg("发送成功");
+                        } else {
+                            getFailMsg(data.data);
+                        }
+                    },error :function(data){
+                        getFailMsg(data.data);
+                    }
+                });
+            }
+        </script>
     </body>
 </html>

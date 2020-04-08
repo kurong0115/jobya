@@ -28,16 +28,16 @@
         dropdownParent: 'body'
     });
 
-    $('#resume-education, #resume-work').selectize({
-        create: true,
-        // sortField: {
-        //     field: 'text',
-        //     direction: 'asc'
-        // },
-        dropdownParent: 'body'
-    });
+    // $('#resume-education, #resume-work').selectize({
+    //     create: true,
+    //     // sortField: {
+    //     //     field: 'text',
+    //     //     direction: 'asc'
+    //     // },
+    //     dropdownParent: 'body'
+    // });
 
-    $('#degree, #degree1,#degree2').selectize({
+    $('#education-degree, #education-degree1,#education-degree2').selectize({
         create: true,
         // sortField: {
         //     field: 'text',

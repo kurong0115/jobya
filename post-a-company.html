@@ -86,12 +86,13 @@
                     <div class="custom-form p-4 border rounded">
                         
                         <form id="ff" method="POST">
-                            <img onclick="uploadHead.click()" id="head-image" src="images/employers/img-1.jpg" class="img-fluid avatar avatar-medium d-block mx-auto rounded-pill" alt="">
+                            <img onclick="uploadHead.click()" id="head-image" src="images\head\1583674552685\1112.png" class="img-fluid avatar avatar-medium d-block mx-auto rounded-pill" alt="">
                             <input type="file" name="file" style="display: none;" id="uploadHead" onchange="getFileName()"/>
                             <input type="hidden" name="head" style="display: none;" id="icon" value=""/>
                             <div class="row mt-4">
                                 <div class="col-md-4">
                                     <div class="form-group app-label">
+                                        <input type="hidden" id="companyNo" value="" />
                                         <label class="text-muted">公司名称<span class="text-danger">*</span> :</label>
                                         <input id="name" required="true" type="text" name="name" class="form-control resume" placeholder="Name">
                                     </div>
@@ -212,7 +213,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group app-label">
                                         <label class="text-muted">成立时间<span class="text-danger">*</span> :</label>
-                                        <input id="createTime" type="text" class="form-control resume" placeholder="CreateTime">
+                                        <input id="createTime" type="date" class="form-control resume" placeholder="CreateTime">
                                     </div>
                                 </div>
 
@@ -315,17 +316,55 @@
             loadTopNav();
             loadFootNav();
             setName();
+            var user = JSON.parse(localStorage.getItem("userInfo"));
+            if (user == null) {
+                jump();
+            }
+            getCompanyInfo();
         });
 
-        
-
-        function saveCompany() {
-            var token = localStorage.getItem("token");
-            if (token == null && token != "") {
-                alert("请先登录再尝试");
-                window.location.href = "login.html";
+        function getCompanyInfo() {
+            var user = JSON.parse(localStorage.getItem("userInfo"));
+            var companyNo = user.companyNo;
+            if (companyNo == "123") {
                 return;
             }
+            $.ajax({
+                type:"GET",
+                async:true,
+                url:defaultUrl + "company/getCompanyInfo",
+                dataType:"json",
+                data:{
+                    "companyNo":companyNo
+                },
+                success:function(data) {
+                    var companyEntity = data.data.company;     
+                    $("#companyNo").val(companyEntity.companyNo);            
+                    $("#name").val(companyEntity.name);
+                    $("#industry").val(companyEntity.industry);
+                    $("#city").val(companyEntity.city);
+                    $("#stage").val(companyEntity.stage);
+                    $("#scale").val(companyEntity.scale);
+                    $("#introduce").val(companyEntity.introduce);
+                    $("#head-image").attr("src", companyEntity.icon);
+                    $("#corporator").val(companyEntity.corporator);
+                    $("#uniformCreditCode").val(companyEntity.uniformCreditCode);
+                    $("#registeredFund").val(companyEntity.registeredFund);
+                    $("#createTime").val(companyEntity.createTime);
+                    $("#type").val(companyEntity.type);
+                    $("#status").val(companyEntity.status);
+                    $("#registeredAddress").val(companyEntity.registeredAddress);
+                    $("#scope").val(companyEntity.scope);
+                }
+            })
+        }
+
+        function saveCompany() {
+            var user = JSON.parse(localStorage.getItem("userInfo"));
+            if (user == null) {
+                jump();
+            }
+            var token = localStorage.getItem("token");
             token = token.substring(1, token.length - 1);
             var name = getValue("name");
             var industry = getValue("industry");
@@ -341,7 +380,8 @@
             var status = getSelectText("status");
             var registeredAddress = getValue("registeredAddress");
             var scope = getValue("scope");
-            var icon = "images/featured-job/img-7.png";
+            var icon = "images/head/1583674552685/1112.png";
+            var companyNo = getValue("companyNo");
             if (getValue("icon") != null) {
                 icon = getValue("icon");
             }
@@ -368,10 +408,12 @@
                     "type":type,
                     "status":status,
                     "registeredAddress":registeredAddress,
-                    "scope":scope
+                    "scope":scope,
+                    "companyNo":companyNo,
+                    "creator":user.userId
                 }
             }
-            
+            console.log(company);
             $.ajax({
                 url: defaultUrl + "company/saveCompany",
                 type: 'POST',
@@ -381,7 +423,16 @@
                 data:JSON.stringify(company),
                 success : function(data) {
                     if (data.code == 200) {
-                        getSuccessMsg("新增成功");
+                        Notiflix.Report.Success(
+                            '新增成功',
+                            ' ',
+                            '关闭',
+                            function () {
+                                updateUserInfo(user.userId);
+                                location.reload();
+                            }
+                        );
+                        
                     } else {
                         getFailMsg(data.data);
                     }
