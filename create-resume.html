@@ -109,11 +109,13 @@
                                     <div class="form-group app-label">
                                         <label class="text-muted">性别<span class="text-danger">*</span> :</label>
                                         <div class="form-button">
-                                            <select class="nice-select rounded" name="gender" id="gender">
-                                                <option data-display="Gender">Gender</option>
-                                                <option value="1" >男</option>
-                                                <option value="2" >女</option>
-                                            </select>
+                                            <div class="registration-form-box">
+                                                <select name="gender" id="resume-gender">
+                                                    <!-- <option data-display="Gender">Gender</option> -->
+                                                    <option value="1">男</option>
+                                                    <option value="2">女</option>
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -136,18 +138,18 @@
                                     <div class="form-group app-label">
                                         <label class="text-muted">婚姻状况<span class="text-danger">*</span></label>
                                         <div class="form-button">
-                                            <select class="nice-select rounded" name="maritalStatus" id="maritalStatus">
+                                            <!-- <select  name="maritalStatus" id="maritalStatus">
                                                 <option data-display="MaritalStatus">MaritalStatus</option>
                                                 <option value="0">未婚</option>
                                                 <option value="1">已婚</option>
-                                            </select>
-                                            <!-- <div class="registration-form-box">
-                                                <select id="select-category">
+                                            </select> -->
+                                            <div class="registration-form-box">
+                                                <select id="resume-maritalStatus">
                                                     <option value="">MaritalStatus...</option>
                                                     <option value="0">未婚</option>
                                                     <option value="1">已婚</option>
                                                 </select>
-                                            </div> -->
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -156,7 +158,7 @@
                                     <div class="form-group app-label">
                                         <label class="text-muted">学历<span class="text-danger">*</span></label>
                                         <div class="form-button">
-                                            <select class="nice-select rounded" id="education" name="education">
+                                            <!-- <select id="education" name="education">
                                                 <option data-display="Education">学历</option>
                                                 <option value="1">初中及以下</option>
                                                 <option value="2">中专/中技</option>
@@ -165,8 +167,8 @@
                                                 <option value="5">本科</option>
                                                 <option value="6">硕士</option>
                                                 <option value="7">博士</option>
-                                            </select>
-                                            <!-- <div class="registration-form-box">
+                                            </select> -->
+                                            <div class="registration-form-box">
                                                 <select id="resume-education">
                                                     <option value="">Education...</option>
                                                     <option value="1">初中及以下</option>
@@ -177,7 +179,7 @@
                                                     <option value="6">硕士</option>
                                                     <option value="7">博士</option>
                                                 </select>
-                                            </div> -->
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -186,7 +188,7 @@
                                     <div class="form-group app-label">
                                         <label class="text-muted">工作经验<span class="text-danger">*</span></label>
                                         <div class="form-button">
-                                            <select class="nice-select rounded" name="workExperience" id="workExperience">
+                                            <!-- <select class="nice-select rounded" name="workExperience" id="workExperience">
                                                 <option data-display="WorkExperience">工作经验</option>
                                                 <option value="1">在校生</option>
                                                 <option value="2">应届生</option>
@@ -195,8 +197,8 @@
                                                 <option value="5">3-5年</option>
                                                 <option value="6">5-10年</option>
                                                 <option value="7">10年以上</option>
-                                            </select>
-                                            <!-- <div class="registration-form-box">
+                                            </select> -->
+                                            <div class="registration-form-box">
                                                 <select id="resume-work">
                                                     <option value="">WorkExperience...</option>
                                                     <option value="1">在校生</option>
@@ -207,7 +209,7 @@
                                                     <option value="6">5-10年</option>
                                                     <option value="7">10年以上</option>
                                                 </select>
-                                            </div> -->
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -757,20 +759,7 @@
             loadTopNav();
             loadFootNav();
             setName();
-            var data = loadResume();
-            
-            // var $select = $("#select-country").selectize({
-            //     create: true,
-            //     // sortField: {
-            //     //     field: 'text',
-            //     //     direction: 'asc'
-            //     // },
-            //     dropdownParent: 'body'
-            // });
-            // console.log(data.data.resume.gender);
-            // var control = $select[0].selectize;
-            // control.addItem(data.data.resume.gender);
-            
+            var data = loadResume();          
         });
 
         function loadResume() {
@@ -792,18 +781,18 @@
                 "age": getValue("age"),
                 "icon":getValue("icon"),
                 "cityIntension": getValue("cityIntension"),
-                "education": getSelectText("education"),
+                "education": getSelectText("resume-education"),
                 "email": getValue("email"),
-                "gender": getSelectText("gender"),
+                "gender": getSelectText("resume-gender"),
                 "id": getValue("resume-id"),
                 "jobIntension": getValue("jobIntension"),
-                "maritalStatus": getSelectText("maritalStatus"),
+                "maritalStatus": getSelectText("resume-maritalStatus"),
                 "name": getValue("name"),
                 "phone": getValue("phone"),
                 "selfIntroduction": getValue("selfIntroduction"),
                 "skill": getValue("skill"),
                 "userId": user.userId,
-                "workExperience": getSelectText("workExperience")
+                "workExperience": getSelectText("resume-work")
             },
             "resumeEducationList": [
                 {
@@ -890,7 +879,7 @@
                 success:function(data) {
                     if (data.code == 200) {
                         Notiflix.Report.Success(
-                            data.message,
+                            '保存成功',
                             ' ',
                             '关闭',
                             function () {

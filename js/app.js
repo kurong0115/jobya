@@ -28,14 +28,23 @@
         dropdownParent: 'body'
     });
 
-    // $('#resume-education, #resume-work').selectize({
-    //     create: true,
-    //     // sortField: {
-    //     //     field: 'text',
-    //     //     direction: 'asc'
-    //     // },
-    //     dropdownParent: 'body'
-    // });
+    $('#company-stage, #company-scale,#company-status').selectize({
+        create: true,
+        // sortField: {
+        //     field: 'text',
+        //     direction: 'asc'
+        // },
+        dropdownParent: 'body'
+    });
+
+    $('#resume-education, #resume-work,#resume-maritalStatus,#resume-gender').selectize({
+        create: true,
+        // sortField: {
+        //     field: 'text',
+        //     direction: 'asc'
+        // },
+        dropdownParent: 'body'
+    });
 
     $('#education-degree, #education-degree1,#education-degree2').selectize({
         create: true,

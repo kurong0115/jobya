@@ -375,6 +375,10 @@ function viewProfile(resumeId, attachId) {
         url = "candidates-profile.html?userId=" + resumeId;
     } else {
         var data = getResumeAttach(attachId);
+        if (data.data == null) {
+            getFailMsg("该附件已被投递者删除");
+            return;
+        }
         url = data.data.url;
     }
     window.open(url);
@@ -467,14 +471,14 @@ function setResumeEducation(data) {
     console.log(educationList);
     for (var i = 0; i < educationList.length; i++) {
         if (i >= 1) {
-            $("#degree" + i).val(educationList[i].degree);
+            setDefaultSelect("#education-degree" + i, getEudcationCode(educationList[i].degree));
             $("#education-id" + i).val(educationList[i].id);
             $("#school" + i).val(educationList[i].school);
             $("#specialty" + i).val(educationList[i].specialty);
             $("#education-date-from" + i).val(educationList[i].dateFrom);
             $("#education-date-to" + i).val(educationList[i].dateTo);
         } else {
-            $("#degree").val(educationList[i].degree);
+            setDefaultSelect("#education-degree", getEudcationCode(educationList[i].degree));
             $("#education-id").val(educationList[i].id);
             $("#school").val(educationList[i].school);
             $("#specialty").val(educationList[i].specialty);
@@ -510,13 +514,8 @@ function setResumeWorkExperience(data) {
 }
 
 function setDefaultSelect(id, value) {
-    console.log(value);
     var $select = $(id).selectize({
         create: true,
-        // sortField: {
-        //     field: 'text',
-        //     direction: 'asc'
-        // },
         dropdownParent: 'body'
     });
     var control = $select[0].selectize;
@@ -528,14 +527,14 @@ function setResume(data) {
     $("#age").val(resume.age);
     $("#cityIntension").val(resume.cityIntension);
     
-    // if (resume.education != null) {
-    //     setDefaultSelect("#resume-education", resume.education);
-    // }
-    // if (resume.workExperience != null) {
-    //     setDefaultSelect("#resume-work", resume.workExperience);
-    // }
-    // setDefaultSelect("#select-category", resume.maritalStatus);
-    // setDefaultSelect("#select-country", resume.gender);
+    if (resume.education != null) {
+        setDefaultSelect("#resume-education", getEudcationCode(resume.education));
+    }
+    if (resume.workExperience != null) {
+        setDefaultSelect("#resume-work", getWorkCode(resume.workExperience));
+    }
+    setDefaultSelect("#resume-maritalStatus", getMaritalCode(resume.maritalStatus));
+    setDefaultSelect("#resume-gender", getGenderCode(resume.gender));
     $("#head-image").attr("src", resume.icon);
     $("#email").val(resume.email);
     //$("#gender").val(resume.gender);
@@ -547,9 +546,25 @@ function setResume(data) {
     $("#resumeId").val(resume.resumeId);
     $("#selfIntroduction").val(resume.selfIntroduction);
     $("#skill").val(resume.skill);
-    
     $("#resume-id").val(resume.id);
-    $("#gender").find("option[val='1']").prop("selected",true);
+}
+
+function getScaleCode(scale) {
+    if (scale == "0-20人") {
+        return 1;
+    } else if (scale == "20-99人") {
+        return 2;
+    } else if (scale == "100-499人") {
+        return 3;
+    } else if (scale == "500-999人") {
+        return 4;
+    } else if (scale == "1000-9999人") {
+        return 5;
+    } else if (scale == "10000人以上") {
+        return 6;
+    } else {
+        return 0;
+    }
 }
 
 function getScale(scale) {
@@ -592,6 +607,28 @@ function getStage(stage) {
     }
 }
 
+function getStageCode(stage) {
+    if (stage == "未融资") {
+        return 1;
+    } else if (stage == "天使轮") {
+        return 2;
+    } else if (stage == "A轮") {
+        return 3;
+    } else if (stage == "B轮") {
+        return 4;
+    } else if (stage == "C轮") {
+        return 5;
+    } else if (stage == "D轮") {
+        return 6;
+    } else if (stage == "已上市") {
+        return 7;
+    } else if (stage == "不需要融资") {
+        return 8;
+    } else {
+        return 0;
+    }
+}
+
 function getUserInfoById(userId) {
     var tmp = null;
     $.ajax({
@@ -613,4 +650,64 @@ function updateUserInfo(userId) {
     var user = getUserInfoById(userId);
     console.log(user);
     localStorage.setItem("userInfo",JSON.stringify(user));
+}
+
+function getGenderCode(gender) {
+    if (gender == "男") {
+        return 1;
+    } else {
+        return 2;
+    }
+}
+
+function getEudcationCode(education) {
+    if (education == "初中及以下") {
+        return 1;
+    } else if (education == "中专/中技") {
+        return 2;
+    } else if (education == "高中") {
+        return 3;
+    } else if (education == "大专") {
+        return 4;
+    } else if (education == "本科") {
+        return 5;
+    } else if (education == "硕士") {
+        return 6;
+    } else if (education == "博士") {
+        return 7;
+    }
+}
+
+function getWorkCode(work) {
+    if (work == "在校生") {
+        return 1;
+    } else if (work == "应届生") {
+        return 2;
+    } else if (work == "1年以内") {
+        return 3;
+    } else if (work == "1-3年") {
+        return 4;
+    } else if (work == "3-5年") {
+        return 5;
+    } else if (work == "5-10年") {
+        return 6;
+    } else if (work == "10年以上") {
+        return 7;
+    }
+}
+
+function getMaritalCode(maritalStatus) {
+    if (maritalStatus == "未婚") {
+        return 0;
+    } else {
+        return 1;
+    }
+}
+
+function getStatusCode(status) {
+    if (status == "开业") {
+        return 1;
+    } else {
+        return 2;
+    }
 }
