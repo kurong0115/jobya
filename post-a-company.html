@@ -333,7 +333,9 @@
 
         function getCompanyInfo() {
             var user = JSON.parse(localStorage.getItem("userInfo"));
+            user = getUserInfoById(user.userId);
             var companyNo = user.companyNo;
+            console.log(user);
             if (companyNo == "123") {
                 return;
             }
