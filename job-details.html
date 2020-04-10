@@ -152,7 +152,7 @@
                                 <!-- <div class="float-left mr-2">
                                     <i class="mdi mdi-bank text-muted"></i>
                                 </div> -->
-                                <p class="text-muted mb-2" >公司名称：<span id="company-name1">1234</span></p>                          
+                                <p class="text-muted mb-2" >公司名称：<span id="company-name1"></span></p>                          
                             </div>
 
                             <div class="job-details-desc-item">
@@ -286,6 +286,7 @@
                     $("#job-title").html(job.name);
                     //$("#company-name1").html('<a href="company-detail.html?companyNo='+ companyEntity.companyNo +'"> '+ companyEntity.name + '</a>');
                     $("#company-name").html(companyEntity.name);
+                    $("#company-name1").html(companyEntity.name);
                     $("#company-name1").click(function(){
                         window.location.href="company-detail.html?companyNo=" + companyEntity.companyNo;
                     });
