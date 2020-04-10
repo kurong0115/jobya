@@ -116,9 +116,11 @@
                                         <div class="form-group app-label mt-2">
                                             <label class="text-muted">行业</label>
                                             <div class="form-button">
-                                                <select id="select-category">
-                                                    <option value="">分类...</option><option value="1">技术</option><option value="2">产品</option><option value="3">设计</option><option value="4">运营</option><option value="5">市场</option><option value="6">人力资源</option><option value="7">高级管理</option><option value="8">销售</option><option value="9">媒体</option><option value="10">金融</option><option value="11">教育培训</option><option value="12">医疗健康</option><option value="13">采购|贸易</option><option value="14">供应链/物流</option><option value="15">房地产/建筑</option><option value="16">咨询/翻译/法律</option><option value="17">旅游</option><option value="18">服务业</option><option value="19">生产制造</option>
-                                                </select>
+                                                <div class="registration-form-box">
+                                                    <select id="select-category">
+                                                        <option value="">分类...</option><option value="1">技术</option><option value="2">产品</option><option value="3">设计</option><option value="4">运营</option><option value="5">市场</option><option value="6">人力资源</option><option value="7">高级管理</option><option value="8">销售</option><option value="9">媒体</option><option value="10">金融</option><option value="11">教育培训</option><option value="12">医疗健康</option><option value="13">采购|贸易</option><option value="14">供应链/物流</option><option value="15">房地产/建筑</option><option value="16">咨询/翻译/法律</option><option value="17">旅游</option><option value="18">服务业</option><option value="19">生产制造</option>
+                                                    </select>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -190,11 +192,11 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group app-label mt-2">
-                                            <label class="text-muted">学历要求</label>
+                                            <label class="text-muted">最低学历要求</label>
                                             <div class="form-button">
                                                 <select class="nice-select rounded" id="education">
-                                                    <!-- <option data-display="学历">学历</option> -->
-                                                    <!-- <option value="0">不限</option>
+                                                    <!-- <option data-display="学历">学历</option>
+                                                    <option value="0">不限</option>
                                                     <option value="1">初中及以下</option>
                                                     <option value="2">中专/中技</option>
                                                     <option value="3">高中</option>
@@ -503,7 +505,7 @@
             var gender = getSelectText("gender");
             var salary = getSelectText("salary");
             var email = getValue("email");
-            var education = getSelectText("education");
+            var education = getSelectValue("education");
             var workExperience = getSelectText("work-experience");
             var introduce = getValue("introduce");
             var address = getValue("address");
