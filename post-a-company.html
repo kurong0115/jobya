@@ -336,7 +336,7 @@
             user = getUserInfoById(user.userId);
             var companyNo = user.companyNo;
             console.log(user);
-            if (companyNo == "123") {
+            if (companyNo != null || companyNo == "123") {
                 return;
             }
             $.ajax({
@@ -349,6 +349,7 @@
                 },
                 success:function(data) {
                     var companyEntity = data.data.company;
+                    console.log(companyEntity);
                     if (companyEntity != null) {
                         $("#companyNo").val(companyEntity.companyNo);            
                         $("#name").val(companyEntity.name);
