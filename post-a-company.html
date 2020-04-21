@@ -86,7 +86,7 @@
                     <div class="custom-form p-4 border rounded">
                         
                         <form id="ff" method="POST">
-                            <img onclick="uploadHead.click()" id="head-image" src="images\head\1583674552685\1112.png" class="img-fluid avatar avatar-medium d-block mx-auto rounded-pill" alt="">
+                            <img onclick="uploadHead.click()" id="head-image" src="images\jobya.png" style="border: 1px,solid,rgb(19, 18, 18)" class="img-fluid avatar avatar-medium d-block mx-auto rounded-pill" alt="">
                             <input type="file" name="file" style="display: none;" id="uploadHead" onchange="getFileName()"/>
                             <input type="hidden" name="head" style="display: none;" id="icon" value=""/>
                             <div class="row mt-4">
@@ -232,7 +232,7 @@
 
                                 <div class="col-md-4">
                                     <div class="form-group app-label">
-                                        <label class="text-muted">状态</label>
+                                        <label class="text-muted">状态<span class="text-danger">*</span> :</label>
                                         <div class="form-button">
                                             <div class="registration-form-box">
                                                 <select id="company-status">
@@ -348,27 +348,30 @@
                     "companyNo":companyNo
                 },
                 success:function(data) {
-                    var companyEntity = data.data.company;     
-                    $("#companyNo").val(companyEntity.companyNo);            
-                    $("#name").val(companyEntity.name);
-                    $("#industry").val(companyEntity.industry);
-                    $("#city").val(companyEntity.city);
-                    setDefaultSelect("#select-country", companyEntity.city);
-                    $("#stage").val(companyEntity.stage);
-                    setDefaultSelect("#company-stage", companyEntity.stage);
-                    $("#scale").val(companyEntity.scale);
-                    setDefaultSelect("#company-scale", companyEntity.scale);
-                    $("#introduce").val(companyEntity.introduce);
-                    $("#head-image").attr("src", companyEntity.icon);
-                    $("#corporator").val(companyEntity.corporator);
-                    $("#uniformCreditCode").val(companyEntity.uniformCreditCode);
-                    $("#registeredFund").val(companyEntity.registeredFund);
-                    $("#createTime").val(companyEntity.createTime);
-                    $("#type").val(companyEntity.type);
-                    $("#status").val(companyEntity.status);
-                    setDefaultSelect("#company-status", getStatusCode(companyEntity.status));
-                    $("#registeredAddress").val(companyEntity.registeredAddress);
-                    $("#scope").val(companyEntity.scope);
+                    var companyEntity = data.data.company;
+                    if (companyEntity != null) {
+                        $("#companyNo").val(companyEntity.companyNo);            
+                        $("#name").val(companyEntity.name);
+                        $("#industry").val(companyEntity.industry);
+                        $("#city").val(companyEntity.city);
+                        setDefaultSelect("#select-country", companyEntity.city);
+                        $("#stage").val(companyEntity.stage);
+                        setDefaultSelect("#company-stage", companyEntity.stage);
+                        $("#scale").val(companyEntity.scale);
+                        setDefaultSelect("#company-scale", companyEntity.scale);
+                        $("#introduce").val(companyEntity.introduce);
+                        $("#head-image").attr("src", companyEntity.icon);
+                        $("#corporator").val(companyEntity.corporator);
+                        $("#uniformCreditCode").val(companyEntity.uniformCreditCode);
+                        $("#registeredFund").val(companyEntity.registeredFund);
+                        $("#createTime").val(companyEntity.createTime);
+                        $("#type").val(companyEntity.type);
+                        $("#status").val(companyEntity.status);
+                        setDefaultSelect("#company-status", getStatusCode(companyEntity.status));
+                        $("#registeredAddress").val(companyEntity.registeredAddress);
+                        $("#scope").val(companyEntity.scope);
+                    }     
+                    
                 }
             })
         }
@@ -394,7 +397,7 @@
             var status = getSelectText("company-status");
             var registeredAddress = getValue("registeredAddress");
             var scope = getValue("scope");
-            var icon = "images/head/1583674552685/1112.png";
+            var icon = "images/jobya.png";
             var companyNo = getValue("companyNo");
             if (getValue("icon") != null) {
                 icon = getValue("icon");
