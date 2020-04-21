@@ -600,6 +600,10 @@
 
         function sendAttachRecord() {
             var attachId = $("input:radio[name=attachId]:checked").val();
+            if (attachId == null) {
+                getFailMsg("请先选择一份附件简历再试!!!");
+                return;
+            }
             saveDeliveryRecord(attachJobId,attachId,attachReceiver);
         }
 
