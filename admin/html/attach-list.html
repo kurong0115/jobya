@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+  
+  <head>
+    <meta charset="UTF-8">
+    <title>JOBYA</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="../css/font.css">
+    <link rel="stylesheet" href="../css/xadmin.css">
+    <link rel="stylesheet" href="../../css/notiflix-2.1.2.min.css">
+    <script src="../js/jquery.min.js"></script>
+    <script type="text/javascript" src="../lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="../js/xadmin.js"></script>
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+      <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+      <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  
+  <body>
+    <div class="x-nav">
+      <span class="layui-breadcrumb">
+        <a href="">首页</a>
+        <a href="">演示</a>
+        <a>
+          <cite>导航元素</cite></a>
+      </span>
+      <a class="layui-btn layui-btn-primary layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
+        <i class="layui-icon" style="line-height:38px">ဂ</i></a>
+    </div>
+    <div class="x-body">
+      <div class="layui-row">
+        <form class="layui-form layui-col-md12 x-so">
+          <input type="text" name="name" id="userId" placeholder="用户编号" autocomplete="off" class="layui-input">
+          <input type="text" name="name" id="attachId" placeholder="附件编号" autocomplete="off" class="layui-input">
+          <input type="hidden" id="pageNum" value="1">
+          <input type="hidden" id="pageSize" value="10">
+          <a href="javascript:selectData()">查询</a>
+        </form>
+      </div>
+      <xblock>
+        <!-- <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
+        <button class="layui-btn" onclick="x_admin_show('添加用户','./order-add.html')"><i class="layui-icon"></i>添加</button> -->
+        <span class="x-right" style="line-height:40px">共有数据：<span id="total">88</span> 条</span>
+      </xblock>
+      <table class="layui-table">
+        <thead>
+          <tr>
+            <th>序号</th>
+            <th>附件编号</th>
+            <th>附件名称</th>
+            <th>查看</th>
+            <th>操作</th>
+            </tr>
+        </thead>
+        <tbody id="list">
+          <tr>
+            <td>1</td>
+            <td>2017009171822298053</td>
+            <td>老王:18925139194</td>
+            <td>7829.10</td>
+            <td>7854.10</td>
+            <td>待确认</td>
+            <td>未支付</td>
+            <td>未发货</td>
+            <td>其他方式</td>
+            <td>申通物流</td>
+            <td>2017-08-17 18:22</td>
+            <td class="td-manage">
+              <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
+                <i class="layui-icon">&#xe640;</i>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="page">
+        <div id="pagination">
+          <a class="prev" href="">&lt;&lt;</a>
+          <a class="num" href="">1</a>
+          <span class="current">2</span>
+          <a class="num" href="">3</a>
+          <a class="num" href="">489</a>
+          <a class="next" href="">&gt;&gt;</a>
+        </div>
+      </div>
+
+    </div>
+    <script src="../../js/common.js"></script>
+    <script src="../../js/notiflix-2.1.2.min.js"></script>
+    <script>
+      layui.use('laydate', function(){
+        var laydate = layui.laydate;
+        
+        //执行一个laydate实例
+        laydate.render({
+          elem: '#start' //指定元素
+        });
+
+        //执行一个laydate实例
+        laydate.render({
+          elem: '#end' //指定元素
+        });
+      });
+
+       /*用户-停用*/
+      function member_stop(obj,id){
+          layer.confirm('确认要停用吗？',function(index){
+
+              if($(obj).attr('title')=='启用'){
+
+                //发异步把用户状态进行更改
+                $(obj).attr('title','停用')
+                $(obj).find('i').html('&#xe62f;');
+
+                $(obj).parents("tr").find(".td-status").find('span').addClass('layui-btn-disabled').html('已停用');
+                layer.msg('已停用!',{icon: 5,time:1000});
+
+              }else{
+                $(obj).attr('title','启用')
+                $(obj).find('i').html('&#xe601;');
+
+                $(obj).parents("tr").find(".td-status").find('span').removeClass('layui-btn-disabled').html('已启用');
+                layer.msg('已启用!',{icon: 5,time:1000});
+              }
+              
+          });
+      }
+
+      /*用户-删除*/
+      function member_del(obj,id){
+          layer.confirm('确认要删除吗？',function(index){
+              //发异步删除数据
+              $(obj).parents("tr").remove();
+              layer.msg('已删除!',{icon:1,time:1000});
+          });
+      }
+
+
+
+      function delAll (argument) {
+
+        var data = tableCheck.getData();
+  
+        layer.confirm('确认要删除吗？'+data,function(index){
+            //捉到所有被选中的，发异步进行删除
+            layer.msg('删除成功', {icon: 1});
+            $(".layui-form-checked").not('.header').parents('tr').remove();
+        });
+      }
+    </script>
+    <script>
+      $(function() {
+        var data = listJob();
+        setData(data);
+      })
+
+      function generatePage(pagination) {
+        $("#pagination").empty();
+        var max = 1;
+        var currentPage = pagination.currentPage;
+        var total = pagination.total;
+        $("#total").html(total);
+        var pageSize = pagination.pageSize;
+        // 计算最大页码
+        max = total % pageSize == 0 ? parseInt(total / pageSize) : parseInt(total / pageSize) + 1;
+        var totalPage = pagination.currentPage + 3 > max ? max : currentPage + 3;
+        $("#pagination").append('<a class="prev" href="javascript:getInfoByPage('+ (currentPage - 1) +',' + max + ')">&lt;&lt;</a>');
+        $("#pagination").append('<span class="current">'+currentPage+'</span>');
+        for (var i = currentPage + 1; i <= totalPage; i++) {
+          $("#pagination").append('<a class="num" href="javascript:getInfoByPage('+ (i) +',' + max + ')">'+i+'</a>');
+        }
+        $("#pagination").append('<a class="next" href="javascript:getInfoByPage('+ (currentPage + 1) +',' + max + ')">&gt;&gt;</a>');
+      }
+
+      function stop(attachId) {
+        layer.confirm('确认要删除吗？',function(index){
+              //发异步删除数据
+              var token = localStorage.getItem("token");
+              token = token.substring(1, token.length - 1);
+              $.ajax({
+                type:"GET",
+                async:true,
+                headers:{"token":token},
+                url:defaultUrl + "attach/deleteResumeAttach",
+                dataType:"json",
+                data:{
+                    "attachId":attachId
+                },
+                success:function(data){
+                  layer.msg('已删除!',{icon:1,time:1000});
+                  location.reload();
+                }
+              })
+              
+          });
+        
+      }
+
+      function getInfoByPage(pageNum,max) {
+        if (pageNum <= 0) {
+            Notiflix.Report.Info(
+                '不能再往前了!!!',
+                ' ',
+                '关闭'
+            )
+            return;
+        }
+        if (pageNum > max) {
+            Notiflix.Report.Info(
+                '已经是最后一页了',
+                ' ',
+                '关闭'
+            )
+            return;
+        }
+        $("#pageNum").val(pageNum);
+        var data = listJob();
+        setData(data);
+    }
+
+
+      function setData(data) {
+        $("#list").empty();
+        generatePage(data.pagination);
+        data = data.data;
+        for (var i = 0; i < data.length; i++) {
+          $("#list").append('<tr><td>'+(i+1)+'</td><td>'+data[i].attachId+'</td><td>'+data[i].fileName+'</td>'+
+                      '<td class="td-manage"><a class="layui-btn layui-btn-sm layui-btn-primary" title="查看详情" target="_blank" href="../../'+data[i].url+'">查看</a></td>'+
+                      '<td class="td-manage"><a title="删除" onclick="stop('+data[i].attachId+')" href="javascript:;"><i class="layui-icon">&#xe640;</i></a></td>'+
+                      '</tr>');
+        }
+      }
+
+      function selectData() {
+        $("#pageNum").val(1);
+        var data = listJob();
+        setData(data);
+      }
+
+      function view(jobNo) {
+        x_admin_show('查看详情','job-detail.html?jobNo='+jobNo);
+      }
+
+      function listJob() {
+        var tmp = null;
+        $.ajax({
+          type:"GET",
+          async:false,
+          url:defaultUrl + "attach/listAttach",
+          dataType:"json",
+          data:{
+              "pageNum":getValue("pageNum"),
+              "pageSize":getValue("pageSize"),
+              "userId":getValue("userId"),
+              "attachId":getSelectValue("attachId")
+          },
+          success:function(data){
+            tmp = data;
+          }
+        })
+        console.log(tmp);
+        return tmp;
+      }
+      
+    </script>
+  </body>
+
+</html>

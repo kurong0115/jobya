@@ -162,6 +162,7 @@ function logout() {
     );
 }
 
+
 function jump() {
     Notiflix.Report.Info(
         '请先登录后再尝试!!!',
@@ -710,4 +711,24 @@ function getStatusCode(status) {
     } else {
         return 2;
     }
+}
+
+function getCount() {
+    $.ajax({
+            type:"GET",
+            async:true,
+            url:defaultUrl + "base/getCount",
+            dataType:"json",
+            success:function(data) {
+                if (data.code == 200) {
+                    $("#memberCount").html(data.data.memberCount);
+                    $("#companyCount").html(data.data.companyCount);
+                    $("#jobCount").html(data.data.jobCount);
+                    $("#applicationCount").html(data.data.applicationCount);
+                } else {
+                    getInfoMsg(data.data);
+                }
+            },
+            //error:error(),
+    })
 }

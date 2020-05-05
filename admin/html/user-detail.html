@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+  
+  <head>
+    <meta charset="UTF-8">
+    <title>公司详情</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="../css/font.css">
+    <link rel="stylesheet" href="../css/xadmin.css">
+    <script src="../js/jquery.min.js"></script>
+    <script type="text/javascript" src="../lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="../js/xadmin.js"></script>
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+      <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+      <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  
+  <body>
+    <div class="x-body">
+        <form class="layui-form">
+            <div class="layui-form-item">
+                <label for="phone" class="layui-form-label">
+                    <span class="x-red">*</span>用户编号
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="userId" name="phone" required lay-verify="phone"
+                    autocomplete="off" class="layui-input" readonly>
+                </div>
+            </div>
+          <div class="layui-form-item">
+              <label for="username" class="layui-form-label">
+                  <span class="x-red">*</span>用户名
+              </label>
+              <div class="layui-input-inline">
+                  <input type="text" id="userName" name="username" required lay-verify="required"
+                  autocomplete="off" class="layui-input" readonly>
+              </div>
+          </div>
+          <div class="layui-form-item">
+            <label for="username" class="layui-form-label">
+                <span class="x-red">*</span>邮箱
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="email" name="username" required lay-verify="required"
+                autocomplete="off" class="layui-input" readonly>
+            </div>
+        </div>
+          <div class="layui-form-item">
+              <label for="username" class="layui-form-label">
+                  <span class="x-red">*</span>联系方式
+              </label>
+              <div class="layui-input-inline">
+                  <input type="text" id="phone" name="username" required lay-verify="required"
+                  autocomplete="off" class="layui-input" readonly>
+              </div>
+          </div>
+          
+          <div class="layui-form-item">
+              <label for="username" class="layui-form-label">
+                  <span class="x-red">*</span>公司编号
+              </label>
+              <div class="layui-input-inline">
+                  <input type="text" id="companyNo" name="username" required lay-verify="required"
+                  autocomplete="off" class="layui-input" readonly>
+              </div>
+          </div>
+      </form>
+    </div>
+    <script src="../../js/common.js"></script>
+    <script src="../../js/jquery.params.js"></script>
+    <script>
+        $(function() {
+            var userId = $.query.get("userId");
+            getUserInfo(userId);
+        })
+        function getUserInfo(userId) {
+            if (userId == null || userId == true || userId == "") {
+                window.location.href="index.html";
+                return;
+            }
+            $.ajax({
+                type:"GET",
+                async:true,
+                url:defaultUrl + "user/getUserInfoById",
+                dataType:"json",
+                data:{
+                    "userId":userId
+                },
+                success:function(data) {
+                    var user = data.data.userEntity;
+                    $("#userName").val(user.userName);
+                    $("#email").val(user.email);
+                    $("#phone").val(user.phone);
+                    $("#companyNo").val(user.companyNo);
+                    $("#userId").val(user.userId);
+                }
+            })
+        }
+    </script>
+  </body>
+
+</html>

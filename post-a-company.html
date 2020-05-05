@@ -274,6 +274,7 @@
             <div class="row">
                 <div class="col-12 mt-4">
                     <input type="submit" id="submit" name="send" onclick="saveCompany()" class="submitBnt btn btn-primary" value="提交">
+                    <input type="submit"  name="send" onclick="unbound()" class="submitBnt btn btn-primary" value="解绑">
                 </div>
             </div>
         </div>
@@ -330,6 +331,36 @@
             }
             getCompanyInfo();
         });
+
+        function unbound() {
+            var user = JSON.parse(localStorage.getItem("userInfo"));
+            var token = localStorage.getItem("token");
+            token = token.substring(1, token.length - 1);
+            $.ajax({
+                url: defaultUrl + "user/unbound",
+                type: 'POST',
+                dataType:"json",
+                headers:{"token":token},
+                data:{"userId":user.userId},
+                success : function(data) {
+                    if (data.code == 200) {
+                        Notiflix.Report.Success(
+                            '解绑成功',
+                            ' ',
+                            '关闭',
+                            function () {
+                                location.reload();
+                            }
+                        );
+                        
+                    } else {
+                        getFailMsg(data.data);
+                    }
+                },error :function(data){
+                    getFailMsg(data.data);
+                }
+            });
+        }
 
         function getCompanyInfo() {
             var user = JSON.parse(localStorage.getItem("userInfo"));

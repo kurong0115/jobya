@@ -704,6 +704,7 @@
                         console.log(jobList);     
                         // onclick="skip('+ jobList[i].jobNo +')"
                         $("#job-grid").empty();
+                        $("#pagination").empty();
                         $("#job-total").html(data.pagination.total);
                         for (var i = 0; i < jobList.length; i++){
                             var job = '<div class="col-lg-4 col-md-6 mt-4 pt-2">' + 
