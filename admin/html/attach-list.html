@@ -39,7 +39,7 @@
           <input type="text" name="name" id="attachId" placeholder="附件编号" autocomplete="off" class="layui-input">
           <input type="hidden" id="pageNum" value="1">
           <input type="hidden" id="pageSize" value="10">
-          <a href="javascript:selectData()">查询</a>
+          <a href="javascript:selectData()" title="查询" class="layui-btn layui-btn-sm layui-btn-primary">查询</a>
         </form>
       </div>
       <xblock>
@@ -231,7 +231,7 @@
         for (var i = 0; i < data.length; i++) {
           $("#list").append('<tr><td>'+(i+1)+'</td><td>'+data[i].attachId+'</td><td>'+data[i].fileName+'</td>'+
                       '<td class="td-manage"><a class="layui-btn layui-btn-sm layui-btn-primary" title="查看详情" target="_blank" href="../../'+data[i].url+'">查看</a></td>'+
-                      '<td class="td-manage"><a title="删除" onclick="stop('+data[i].attachId+')" href="javascript:;"><i class="layui-icon">&#xe640;</i></a></td>'+
+                      '<td class="td-manage"><a class="layui-btn layui-btn-sm layui-btn-primary" title="删除" onclick="stop('+data[i].attachId+')" href="javascript:;"><i class="layui-icon">&#xe640;</i></a></td>'+
                       '</tr>');
         }
       }

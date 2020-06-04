@@ -45,7 +45,7 @@
               <option value="1">已停用</option>
             </select>
           </div>
-          <a href="javascript:selectData()">查询</a>
+          <a href="javascript:selectData()" title="查询" class="layui-btn layui-btn-sm layui-btn-primary">查询</a>
         </form>
       </div>
       <xblock>
@@ -240,7 +240,7 @@
         for (var i = 0; i < data.length; i++) {
           $("#list").append('<tr><td>'+(i+1)+'</td><td>'+data[i].userEntity.userId+'</td><td>'+data[i].userEntity.userName+'</td><td>'+data[i].userEntity.email+'</td><td>'+data[i].userEntity.phone+'</td>'+
                       '<td class="td-manage"><a title="查看详情" class="layui-btn layui-btn-sm layui-btn-primary" onclick="view('+data[i].userEntity.userId+')" href="javascript:;">查看详情</a></td>'+
-                      '<td class="td-manage"><a title="删除" onclick="stop('+data[i].userEntity.userId+')" href="javascript:;"><i class="layui-icon">&#xe640;</i></a></td>'+
+                      '<td class="td-manage"><a class="layui-btn layui-btn-sm layui-btn-primary" title="删除" onclick="stop('+data[i].userEntity.userId+')" href="javascript:;"><i class="layui-icon">&#xe640;</i></a></td>'+
                       '</tr>');
         }
       }
